@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
   <title>Cheers O Bar - Slot dos Shots</title>
-
   <style>
     :root{
       --bg:#0b0d11;
@@ -19,23 +18,17 @@
       --neon-pink:#ff3bd4;
       --neon-cyan:#3be7ff;
       --neon-violet:#8c62ff;
-
-      --cell-h:92px;
-      --reel-gap:10px;
-      --radius:22px;
-      --panel-w:290px;
-      --app-pad:10px;
-      --maxw:1500px;
-      --payline-glow:rgba(229,184,92,.44);
+      --cell-h:116px;
+      --reel-gap:14px;
+      --radius:26px;
+      --maxw:1700px;
     }
-
     *{
       box-sizing:border-box;
       -webkit-tap-highlight-color:transparent;
       user-select:none;
       -webkit-user-select:none;
     }
-
     html,body{
       width:100%;
       height:100%;
@@ -48,13 +41,11 @@
         radial-gradient(circle at top, #2a3560 0%, #121826 34%, #07080b 100%);
       color:var(--text);
     }
-
     body{
       display:flex;
       align-items:center;
       justify-content:center;
     }
-
     .boot{
       position:fixed;
       inset:0;
@@ -71,17 +62,17 @@
       pointer-events:none;
     }
     .boot-card{
-      width:min(92vw,760px);
+      width:min(92vw,780px);
       background:linear-gradient(180deg, #1f2531, #11161d);
       border:2px solid rgba(229,184,92,.45);
       border-radius:28px;
-      padding:28px 24px;
+      padding:32px 26px;
       text-align:center;
       box-shadow:0 18px 40px rgba(0,0,0,.35);
     }
     .boot-title{
       margin:0;
-      font-size:clamp(32px, 4vw, 68px);
+      font-size:clamp(34px, 4vw, 72px);
       line-height:.95;
       font-weight:900;
       text-transform:uppercase;
@@ -89,17 +80,17 @@
     }
     .boot-title span{ color:var(--gold); }
     .boot-sub{
-      margin-top:14px;
-      font-size:clamp(14px, 1.2vw, 22px);
+      margin-top:16px;
+      font-size:clamp(15px, 1.3vw, 24px);
       color:#eef2f8;
       text-transform:uppercase;
-      line-height:1.45;
+      line-height:1.5;
       font-weight:700;
     }
     .boot-cta{
-      margin-top:20px;
+      margin-top:22px;
       display:inline-block;
-      padding:14px 22px;
+      padding:16px 24px;
       border-radius:999px;
       background:linear-gradient(180deg, #f0c46a, #ad7822);
       color:#1b1408;
@@ -107,53 +98,39 @@
       text-transform:uppercase;
       letter-spacing:.08em;
     }
-
     .app{
       width:100vw;
       height:100vh;
-      padding:var(--app-pad);
+      max-width:1920px;
+      padding:18px;
       display:grid;
-      grid-template-columns:var(--panel-w) minmax(0, 1fr);
-      gap:10px;
+      grid-template-columns:minmax(260px, 22vw) 1fr;
+      gap:18px;
       align-items:stretch;
-      overflow:hidden;
     }
-
     .panel{
-      width:var(--panel-w);
-      min-width:var(--panel-w);
-      max-width:var(--panel-w);
-      height:calc(100vh - (var(--app-pad) * 2));
       background:
         linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
         radial-gradient(120% 120% at 10% 0%, rgba(59,231,255,.07) 0%, transparent 55%),
         radial-gradient(120% 120% at 90% 10%, rgba(255,59,212,.05) 0%, transparent 55%),
         linear-gradient(180deg, var(--panel), var(--panel2));
       border:1px solid rgba(255,255,255,.09);
-      border-radius:22px;
-      padding:16px;
+      border-radius:24px;
+      padding:18px;
       box-shadow:0 10px 22px rgba(0,0,0,.22);
-      overflow:auto;
-      align-self:stretch;
+      overflow:hidden;
     }
-    .panel::-webkit-scrollbar{ width:9px; }
-    .panel::-webkit-scrollbar-thumb{
-      background:rgba(229,184,92,.28);
-      border-radius:999px;
-    }
-    .panel::-webkit-scrollbar-track{ background:transparent; }
-
     .panel h2{
       margin:0 0 8px;
-      font-size:clamp(22px, 1.55vw, 30px);
+      font-size:clamp(24px, 1.7vw, 34px);
       text-transform:uppercase;
       color:var(--gold);
       letter-spacing:.04em;
     }
     .sub{
-      margin:0 0 10px;
+      margin:0 0 12px;
       color:var(--muted);
-      font-size:12px;
+      font-size:13px;
       text-transform:uppercase;
       letter-spacing:.12em;
       font-weight:700;
@@ -161,92 +138,82 @@
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
       border:1px solid rgba(255,255,255,.08);
-      border-radius:16px;
-      padding:12px;
-      margin-bottom:10px;
+      border-radius:18px;
+      padding:14px;
+      margin-bottom:12px;
     }
     .card .big{
-      font-size:clamp(14px, .95vw, 19px);
+      font-size:clamp(16px, 1vw, 21px);
       font-weight:900;
       text-transform:uppercase;
       line-height:1.15;
     }
     .card .small{
       margin-top:4px;
-      font-size:12px;
+      font-size:13px;
       color:#d7dce5;
       text-transform:uppercase;
       font-weight:700;
-      line-height:1.25;
+      line-height:1.3;
     }
-    .entry{ border-left:5px solid var(--gold); }
-    .top{ border-left:5px solid var(--gold); }
-    .mid{ border-left:5px solid var(--silver); }
-    .low{ border-left:5px solid var(--bronze); }
-
+    .entry{ border-left:6px solid var(--gold); }
+    .top{ border-left:6px solid var(--gold); }
+    .mid{ border-left:6px solid var(--silver); }
+    .low{ border-left:6px solid var(--bronze); }
     .center{
-      min-width:0;
-      min-height:0;
-      height:calc(100vh - (var(--app-pad) * 2));
       display:flex;
       align-items:center;
       justify-content:center;
-      overflow:hidden;
+      min-width:0;
     }
-
     .machine{
       width:min(100%, var(--maxw));
       height:100%;
-      max-height:calc(100vh - (var(--app-pad) * 2));
-      margin:0 auto;
+      min-height:740px;
       background:
         linear-gradient(145deg, #2e1a06 0%, #a16f23 12%, #f3dc98 26%, #e9eef7 36%, #ffffff 42%, #f0cf78 58%, #8a541d 80%, #231306 100%);
-      border-radius:30px;
-      padding:12px;
-      box-shadow:0 16px 42px rgba(0,0,0,.32);
+      border-radius:34px;
+      padding:16px;
+      box-shadow:0 18px 52px rgba(0,0,0,.32);
       position:relative;
-      overflow:hidden;
     }
-
     .machine::before{
       content:"";
       position:absolute;
-      inset:-8px;
-      border-radius:38px;
+      inset:-10px;
+      border-radius:42px;
       pointer-events:none;
       background:
-        radial-gradient(120% 120% at 0% 0%, rgba(59,231,255,.18) 0%, transparent 55%),
-        radial-gradient(120% 120% at 100% 0%, rgba(255,59,212,.14) 0%, transparent 55%),
-        radial-gradient(120% 140% at 50% 110%, rgba(229,184,92,.18) 0%, transparent 60%);
-      opacity:.82;
+        radial-gradient(120% 120% at 0% 0%, rgba(59,231,255,.20) 0%, transparent 55%),
+        radial-gradient(120% 120% at 100% 0%, rgba(255,59,212,.18) 0%, transparent 55%),
+        radial-gradient(120% 140% at 50% 110%, rgba(229,184,92,.22) 0%, transparent 60%);
+      opacity:.85;
       z-index:0;
     }
-
     .machine-inner{
       z-index:1;
       width:100%;
       height:100%;
-      border-radius:22px;
-      padding:12px;
+      border-radius:26px;
+      padding:16px;
       background:linear-gradient(180deg, #1b2028, #090c11);
       display:grid;
       grid-template-rows:auto auto 1fr auto;
-      gap:10px;
+      gap:14px;
       overflow:hidden;
       position:relative;
     }
-
     .marquee{
-      min-height:46px;
-      border-radius:14px;
-      padding:10px 14px;
+      min-height:58px;
+      border-radius:18px;
+      padding:14px 18px;
       text-align:center;
       background:
         linear-gradient(90deg, rgba(229,184,92,.18), rgba(255,255,255,.08), rgba(229,184,92,.18)),
-        linear-gradient(90deg, rgba(59,231,255,.08), transparent 40%, rgba(255,59,212,.08));
+        linear-gradient(90deg, rgba(59,231,255,.10), transparent 40%, rgba(255,59,212,.10));
       border:1px solid rgba(255,255,255,.12);
       font-weight:900;
-      font-size:clamp(14px, .9vw, 20px);
+      font-size:clamp(16px, 1vw, 24px);
       text-transform:uppercase;
       letter-spacing:.05em;
       display:flex;
@@ -259,30 +226,27 @@
       content:"";
       position:absolute;
       inset:-40%;
-      background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,.16) 45%, transparent 70%);
+      background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,.18) 45%, transparent 70%);
       transform:translateX(-35%) rotate(8deg);
-      opacity:.35;
-      animation:marqShine 5s ease-in-out infinite;
+      opacity:.45;
+      animation:marqShine 4.6s ease-in-out infinite;
     }
-    body.perf-low .marquee::after{ animation:none; opacity:.18; }
-
+    body.perf-low .marquee::after{ animation:none; opacity:.25; }
     @keyframes marqShine{
       0%,20%{ transform:translateX(-40%) rotate(8deg); opacity:.05; }
-      45%{ opacity:.40; }
-      60%,100%{ transform:translateX(40%) rotate(8deg); opacity:.05; }
+      45%{ opacity:.55; }
+      60%,100%{ transform:translateX(40%) rotate(8deg); opacity:.06; }
     }
-
     .topbar{
       display:grid;
-      grid-template-columns:180px 1fr 180px;
-      gap:10px;
+      grid-template-columns:220px 1fr 220px;
+      gap:14px;
       align-items:center;
     }
-
     .screen{
-      min-height:68px;
-      border-radius:14px;
-      padding:10px 12px;
+      min-height:88px;
+      border-radius:18px;
+      padding:12px 14px;
       background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
       border:1px solid rgba(255,255,255,.08);
       display:flex;
@@ -290,22 +254,21 @@
       justify-content:center;
     }
     .screen .label{
-      font-size:10px;
+      font-size:11px;
       text-transform:uppercase;
       color:var(--muted);
-      letter-spacing:.22em;
+      letter-spacing:.24em;
       font-weight:700;
     }
     .screen .value{
-      margin-top:5px;
-      font-size:clamp(16px, 1vw, 24px);
+      margin-top:6px;
+      font-size:clamp(20px, 1.2vw, 30px);
       font-weight:900;
       text-transform:uppercase;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
-
     .title{
       text-align:center;
       text-transform:uppercase;
@@ -314,13 +277,13 @@
     .title .mini{
       display:block;
       color:var(--silver);
-      font-size:clamp(11px, .75vw, 14px);
-      letter-spacing:.20em;
+      font-size:clamp(13px, .85vw, 16px);
+      letter-spacing:.24em;
       font-weight:700;
     }
     .title .main{
       display:block;
-      font-size:clamp(28px, 2.4vw, 54px);
+      font-size:clamp(34px, 3vw, 66px);
       font-weight:900;
       color:#fff;
       margin-top:4px;
@@ -329,37 +292,34 @@
     .title .subt{
       display:block;
       color:var(--gold);
-      font-size:clamp(11px, .74vw, 15px);
-      letter-spacing:.14em;
+      font-size:clamp(13px, .82vw, 17px);
+      letter-spacing:.16em;
       margin-top:4px;
       font-weight:700;
     }
-
     .reels-shell{
       position:relative;
-      border-radius:22px;
-      padding:12px;
+      border-radius:26px;
+      padding:16px;
       background:
-        radial-gradient(120% 140% at 50% 0%, rgba(59,231,255,.06) 0%, transparent 55%),
-        radial-gradient(120% 140% at 50% 100%, rgba(255,59,212,.05) 0%, transparent 55%),
+        radial-gradient(120% 140% at 50% 0%, rgba(59,231,255,.07) 0%, transparent 55%),
+        radial-gradient(120% 140% at 50% 100%, rgba(255,59,212,.06) 0%, transparent 55%),
         linear-gradient(180deg, #171b22, #080a0f);
       border:1px solid rgba(255,255,255,.09);
       overflow:hidden;
-      min-height:0;
     }
     .reels-shell::before{
       content:"";
       position:absolute;
-      inset:8px;
-      border-radius:18px;
+      inset:10px;
+      border-radius:22px;
       pointer-events:none;
       border:1px solid rgba(255,255,255,.06);
       box-shadow:
         0 0 0 1px rgba(0,0,0,.35) inset,
-        0 8px 24px rgba(0,0,0,.26) inset;
+        0 10px 30px rgba(0,0,0,.28) inset;
       z-index:1;
     }
-
     .reels{
       display:grid;
       grid-template-columns:repeat(5,1fr);
@@ -367,49 +327,29 @@
       position:relative;
       z-index:2;
     }
-
     .payline{
       position:absolute;
-      left:8px;
-      right:8px;
-      top:calc(12px + var(--cell-h));
+      left:10px;
+      right:10px;
+      top:calc(16px + var(--cell-h));
       height:var(--cell-h);
-      border-top:3px solid rgba(255,255,255,.95);
-      border-bottom:3px solid rgba(255,255,255,.95);
-      border-radius:14px;
+      border-top:3px solid rgba(255,255,255,.92);
+      border-bottom:3px solid rgba(255,255,255,.92);
+      border-radius:18px;
       z-index:3;
       pointer-events:none;
-      box-shadow:0 0 14px rgba(255,255,255,.10);
-      transition:box-shadow .16s ease, opacity .16s ease, transform .16s ease;
+      box-shadow:0 0 18px rgba(255,255,255,.10);
     }
-    .reels-shell.spinning .payline{
-      opacity:1;
-      animation:paylinePulse .7s linear infinite;
-    }
-
-    @keyframes paylinePulse{
-      0%,100%{
-        box-shadow:0 0 12px rgba(255,255,255,.10);
-        transform:scaleX(.998);
-      }
-      50%{
-        box-shadow:0 0 22px var(--payline-glow);
-        transform:scaleX(1);
-      }
-    }
-
     .reel-window{
       height:calc(var(--cell-h) * 3);
       overflow:hidden;
-      border-radius:16px;
+      border-radius:20px;
       background:
         radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.06) 0%, transparent 55%),
         linear-gradient(180deg, #232a3f, #0f1320);
       border:2px solid rgba(255,255,255,.07);
       position:relative;
       contain:layout paint;
-      transform:translateZ(0);
-      backface-visibility:hidden;
     }
     .reel-window::before,
     .reel-window::after{
@@ -417,32 +357,23 @@
       position:absolute;
       left:0;
       right:0;
-      height:17%;
+      height:18%;
       z-index:3;
       pointer-events:none;
     }
     .reel-window::before{ top:0; background:linear-gradient(180deg, rgba(0,0,0,.62), transparent); }
     .reel-window::after{ bottom:0; background:linear-gradient(0deg, rgba(0,0,0,.62), transparent); }
-
-    .reel-window.spinning{
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01)),
-        linear-gradient(180deg, #253149, #0d111b);
-    }
-
     .reel-track{
       transform:translate3d(0,0,0);
       will-change:transform;
-      backface-visibility:hidden;
     }
-
     .symbol{
       height:var(--cell-h);
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
-      gap:4px;
+      gap:6px;
       border-top:1px solid rgba(255,255,255,.04);
       border-bottom:1px solid rgba(0,0,0,.25);
       background:
@@ -450,7 +381,6 @@
         linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
       text-transform:uppercase;
       position:relative;
-      transition:opacity .16s ease;
     }
     .symbol::after{
       content:"";
@@ -458,64 +388,38 @@
       left:10%;
       right:10%;
       top:10%;
-      height:24%;
-      border-radius:14px;
+      height:26%;
+      border-radius:16px;
       background:linear-gradient(180deg, rgba(255,255,255,.14), transparent);
       opacity:.55;
       pointer-events:none;
     }
     .symbol .icon{
-      font-size:38px;
+      font-size:46px;
       line-height:1;
-      transform:translate3d(0,0,0);
+      transform:translateZ(0);
     }
     .symbol .txt{
-      font-size:15px;
+      font-size:18px;
       font-weight:900;
       letter-spacing:.06em;
     }
-
-    .reel-window.spinning .symbol{
-      opacity:.95;
-    }
-    .reel-window.spinning .symbol .icon{
-      transform:translate3d(0,0,0) scale(1.03);
-    }
-
     .symbol.shot{ color:#ffecb6; }
     .symbol.beer{ color:#edf6ff; }
     .symbol.wine{ color:#e6ebf5; }
     .symbol.ice{ color:#f5fbff; }
     .symbol.bull{ color:#ffe3ad; }
-
     .symbol.win{
-      background:linear-gradient(180deg, rgba(229,184,92,.36), rgba(255,255,255,.08));
-      animation:winCell .22s ease-in-out 5;
-      outline:2px solid rgba(229,184,92,.55);
+      background:linear-gradient(180deg, rgba(229,184,92,.28), rgba(255,255,255,.06));
+      animation:winCell .4s ease-in-out 4;
+      outline:2px solid rgba(229,184,92,.45);
       outline-offset:-2px;
-      box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,.10),
-        0 0 18px rgba(229,184,92,.14);
     }
-    .symbol.win .icon{
-      animation:winIcon .20s ease-in-out 5 alternate;
-    }
-    body.perf-low .symbol.win{
-      animation:winCell .20s ease-in-out 3;
-    }
-    body.perf-low .symbol.win .icon{
-      animation:none;
-    }
-
+    body.perf-low .symbol.win{ animation:winCell .4s ease-in-out 2; }
     @keyframes winCell{
       0%,100%{ transform:scale(1); opacity:1; }
-      50%{ transform:scale(1.02); opacity:.96; }
+      50%{ transform:scale(1.03); opacity:.92; }
     }
-    @keyframes winIcon{
-      from{ transform:translate3d(0,0,0) scale(1); }
-      to{ transform:translate3d(0,-1px,0) scale(1.07); }
-    }
-
     .overlay{
       position:absolute;
       inset:0;
@@ -526,116 +430,63 @@
       justify-content:center;
       opacity:0;
     }
-    .overlay.show{
-      animation:overlayIn 1.6s ease-out forwards;
-    }
-
+    .overlay.show{ animation:overlayIn 1.3s ease-out forwards; }
     @keyframes overlayIn{
       0%{ opacity:0; transform:scale(.96); }
-      10%{ opacity:1; transform:scale(1); }
-      82%{ opacity:1; }
-      100%{ opacity:0; transform:scale(1.02); }
+      12%{ opacity:1; transform:scale(1); }
+      80%{ opacity:1; }
+      100%{ opacity:0; transform:scale(1.03); }
     }
-
     .overlay-card{
-      width:min(90%, 960px);
-      border-radius:24px;
-      padding:20px 24px;
+      width:min(92%, 980px);
+      border-radius:26px;
+      padding:22px 26px;
       text-align:center;
-      background:rgba(11,14,20,.92);
-      border:2px solid rgba(255,255,255,.14);
-      box-shadow:
-        0 0 0 2px rgba(255,255,255,.03) inset,
-        0 0 24px rgba(59,231,255,.16),
-        0 0 36px rgba(255,59,212,.14),
-        0 0 52px rgba(229,184,92,.14);
+      background:rgba(15,18,25,.86);
+      border:2px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(2px);
     }
     .overlay-kicker{
-      font-size:clamp(15px, .95vw, 22px);
-      font-weight:900;
+      font-size:clamp(16px, 1vw, 24px);
+      font-weight:800;
       text-transform:uppercase;
       color:#fff6d9;
       letter-spacing:.18em;
     }
     .overlay-main{
       margin-top:6px;
-      font-size:clamp(52px, 6vw, 118px);
+      font-size:clamp(54px, 6.2vw, 130px);
       line-height:.9;
       font-weight:900;
       text-transform:uppercase;
-      color:#fff4cc;
-      text-shadow:
-        0 0 8px rgba(255,244,204,.95),
-        0 0 18px rgba(229,184,92,.95),
-        0 0 34px rgba(255,59,212,.55),
-        0 0 48px rgba(59,231,255,.45);
+      color:#fff;
     }
     .overlay-sub{
-      margin-top:8px;
-      font-size:clamp(15px, .95vw, 22px);
-      font-weight:900;
+      margin-top:6px;
+      font-size:clamp(16px, 1vw, 24px);
+      font-weight:800;
       text-transform:uppercase;
-      letter-spacing:.14em;
-      color:#eef7ff;
-      text-shadow:0 0 10px rgba(59,231,255,.35);
+      letter-spacing:.12em;
     }
-    .overlay.show .overlay-card{
-      animation:prizeCardPop .55s cubic-bezier(.2,.9,.2,1), prizeGlow 1.05s steps(1) 4;
+    .overlay.show .overlay-main{ animation:blinkPrize .12s steps(1) 12; }
+    @keyframes blinkPrize{
+      0%,100%{ opacity:1; transform:scale(1); }
+      50%{ opacity:.15; transform:scale(1.05); }
     }
-    .overlay.show .overlay-main{
-      animation:prizeNeon .16s steps(1) 10;
-    }
-
-    @keyframes prizeCardPop{
-      0%{ transform:scale(.86); }
-      65%{ transform:scale(1.04); }
-      100%{ transform:scale(1); }
-    }
-    @keyframes prizeNeon{
-      0%,100%{
-        opacity:1;
-        filter:none;
-      }
-      50%{
-        opacity:.75;
-        filter:brightness(1.35);
-      }
-    }
-    @keyframes prizeGlow{
-      0%,100%{
-        box-shadow:
-          0 0 0 2px rgba(255,255,255,.03) inset,
-          0 0 24px rgba(59,231,255,.16),
-          0 0 36px rgba(255,59,212,.14),
-          0 0 52px rgba(229,184,92,.14);
-      }
-      50%{
-        box-shadow:
-          0 0 0 2px rgba(255,255,255,.05) inset,
-          0 0 34px rgba(59,231,255,.30),
-          0 0 52px rgba(255,59,212,.28),
-          0 0 72px rgba(229,184,92,.28);
-      }
-    }
-
     .flash{
       position:absolute;
       inset:0;
       pointer-events:none;
       opacity:0;
       z-index:4;
-      background:
-        radial-gradient(circle at center, rgba(255,255,255,.22) 0%, rgba(229,184,92,.14) 26%, transparent 60%);
+      background:radial-gradient(circle at center, rgba(255,255,255,.16) 0%, rgba(229,184,92,.10) 28%, transparent 60%);
     }
-    .flash.show{
-      animation:flashFade .72s ease-out forwards;
-    }
+    .flash.show{ animation:flashFade .65s ease-out forwards; }
     @keyframes flashFade{
       0%{ opacity:0; transform:scale(.94); }
-      18%{ opacity:1; transform:scale(1); }
-      100%{ opacity:0; transform:scale(1.06); }
+      20%{ opacity:1; transform:scale(1); }
+      100%{ opacity:0; transform:scale(1.08); }
     }
-
     .fireworks{
       position:absolute;
       inset:0;
@@ -644,18 +495,21 @@
       pointer-events:none;
       z-index:4;
     }
-
+    body.perf-low .flash.show{ animation:none; opacity:0.6; }
+    body.perf-low .overlay.show{ animation:none; opacity:1; }
+    body.perf-low .overlay-main{ animation:none !important; }
+    body.perf-low .overlay-card{ backdrop-filter:none; }
+    body.perf-low .fireworks{ display:none; }
     .controls{
       display:grid;
       grid-template-columns:1fr auto 1fr;
-      gap:10px;
+      gap:14px;
       align-items:center;
     }
-
     .status{
-      min-height:74px;
-      border-radius:14px;
-      padding:10px 12px;
+      min-height:92px;
+      border-radius:18px;
+      padding:12px 14px;
       background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
       border:1px solid rgba(255,255,255,.08);
       display:flex;
@@ -663,15 +517,15 @@
       justify-content:center;
     }
     .status .label{
-      font-size:10px;
+      font-size:11px;
       text-transform:uppercase;
       color:var(--muted);
-      letter-spacing:.22em;
+      letter-spacing:.24em;
       font-weight:700;
     }
     .status .value{
-      margin-top:5px;
-      font-size:clamp(16px, .95vw, 24px);
+      margin-top:6px;
+      font-size:clamp(18px, 1.1vw, 28px);
       font-weight:900;
       text-transform:uppercase;
     }
@@ -679,33 +533,30 @@
     .status.shot .value{ color:#ffe6a0; }
     .status.beer .value{ color:#eef6ff; }
     .status.lose .value{ color:#e6c17c; }
-
     .spin{
-      width:min(150px, 11vw);
-      height:min(150px, 11vw);
-      min-width:100px;
-      min-height:100px;
+      width:min(190px, 14vw);
+      height:min(190px, 14vw);
+      min-width:120px;
+      min-height:120px;
       border:none;
       border-radius:50%;
       background:radial-gradient(circle at 35% 28%, #fff7e4 0%, #f0c973 20%, #c38a2f 54%, #7a4b12 100%);
       color:#221707;
-      font-size:clamp(20px, 1.5vw, 32px);
+      font-size:clamp(24px, 1.8vw, 38px);
       font-weight:900;
       text-transform:uppercase;
       letter-spacing:.08em;
-      box-shadow:0 10px 18px rgba(0,0,0,.26);
+      box-shadow:0 10px 22px rgba(0,0,0,.26);
       cursor:pointer;
-      transition:transform .16s ease, opacity .16s ease;
     }
     .spin:active{ transform:scale(.98); }
     .spin.disabled{ opacity:.72; }
-
     .lever{
       position:absolute;
-      right:-78px;
-      top:108px;
-      width:112px;
-      height:300px;
+      right:-95px;
+      top:120px;
+      width:130px;
+      height:340px;
       pointer-events:none;
     }
     .lever-hit{
@@ -717,153 +568,58 @@
     }
     .lever-base{
       position:absolute;
-      right:24px;
-      bottom:18px;
-      width:46px;
-      height:80px;
-      border-radius:16px;
+      right:30px;
+      bottom:20px;
+      width:52px;
+      height:90px;
+      border-radius:18px;
       background:linear-gradient(180deg, #f4f6fb, #9ea8b5);
     }
     .lever-stick{
       position:absolute;
-      right:42px;
-      top:28px;
-      width:12px;
-      height:178px;
+      right:49px;
+      top:30px;
+      width:14px;
+      height:205px;
       border-radius:20px;
       background:linear-gradient(180deg, #fff, #9fa9b5);
       transform-origin:top center;
-      transition:transform .22s ease;
+      transition:transform .24s ease;
     }
     .lever-ball{
       position:absolute;
-      right:20px;
-      top:-2px;
-      width:52px;
-      height:52px;
+      right:25px;
+      top:-4px;
+      width:60px;
+      height:60px;
       border-radius:50%;
       background:radial-gradient(circle at 35% 28%, #fff5dc 0%, #efc466 30%, #b97d21 70%, #6c4311 100%);
-      transition:transform .22s ease;
+      transition:transform .24s ease;
     }
     .machine.pull .lever-stick{ transform:rotate(18deg); }
-    .machine.pull .lever-ball{ transform:translateY(96px) translateX(8px); }
-
+    .machine.pull .lever-ball{ transform:translateY(110px) translateX(10px); }
     .hint{
-      font-size:clamp(15px, .95vw, 22px);
+      font-size:clamp(17px, 1vw, 24px);
       font-weight:900;
       text-transform:uppercase;
     }
     .pulse{ animation:softPulse 1.2s ease-in-out infinite; }
-
-    @keyframes softPulse{
-      0%,100%{ opacity:1; }
-      50%{ opacity:.65; }
+    @keyframes softPulse{ 0%,100%{ opacity:1; } 50%{ opacity:.65; } }
+    @media (max-width:1400px){
+      .app{ grid-template-columns:1fr; height:auto; overflow:auto; }
+      .machine{ min-height:720px; }
+      .lever{ display:none; }
     }
-
-    @media (max-width:1180px){
-      :root{
-        --panel-w:260px;
-        --cell-h:84px;
-      }
-      .app{
-        gap:8px;
-        padding:8px;
-      }
-      .panel{
-        width:var(--panel-w);
-        min-width:var(--panel-w);
-        max-width:var(--panel-w);
-        height:calc(100vh - 16px);
-        padding:12px;
-      }
-      .center{
-        height:calc(100vh - 16px);
-      }
-      .machine{
-        max-height:calc(100vh - 16px);
-      }
-      .lever{
-        display:none;
-      }
-      .topbar{
-        grid-template-columns:150px 1fr 150px;
-      }
-      .title .main{
-        font-size:clamp(24px, 2vw, 42px);
-      }
-    }
-
     @media (max-width:900px){
-      :root{
-        --cell-h:86px;
-      }
-
-      html,body{
-        overflow:auto;
-      }
-
-      .app{
-        grid-template-columns:1fr;
-        height:auto;
-        min-height:100vh;
-        overflow:auto;
-      }
-
-      .panel{
-        width:100%;
-        min-width:0;
-        max-width:none;
-        height:auto;
-        max-height:none;
-      }
-
-      .center{
-        height:auto;
-        min-height:640px;
-      }
-
-      .machine{
-        height:auto;
-        min-height:640px;
-        max-height:none;
-      }
-
-      .topbar{
-        grid-template-columns:1fr;
-      }
-
-      .controls{
-        grid-template-columns:1fr;
-      }
-
-      .spin{
-        width:132px;
-        height:132px;
-        justify-self:center;
-      }
+      :root{ --cell-h:96px; }
+      .topbar{ grid-template-columns:1fr; }
+      .controls{ grid-template-columns:1fr; }
+      .spin{ width:140px; height:140px; justify-self:center; }
+      .panel{ padding:14px; }
     }
-
     @media (prefers-reduced-motion: reduce){
-      .overlay.show,
-      .flash.show,
-      .symbol.win,
-      .overlay.show .overlay-card,
-      .overlay.show .overlay-main{
-        animation:none !important;
-      }
-      .reel-track{
-        will-change:auto;
-      }
-    }
-
-    body.perf-low .marquee::after{
-      animation:none;
-      opacity:.16;
-    }
-    body.perf-low .overlay-card{
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.03) inset,
-        0 0 18px rgba(229,184,92,.12);
+      .overlay.show, .flash.show, .symbol.win{ animation:none !important; }
+      .reel-track{ will-change:auto; }
     }
   </style>
 </head>
@@ -875,79 +631,64 @@
       <div class="boot-cta">Clique / toca / enter para começar</div>
     </div>
   </div>
-
   <div class="app">
     <aside class="panel">
       <h2>Entrada</h2>
       <p class="sub">Participação</p>
-
       <div class="card entry">
         <div class="big">Pede 1 pack de 6 shots da casa</div>
         <div class="small">Morango ou maracujá</div>
       </div>
-
-      <h2 style="margin-top:16px;">Prémios</h2>
+      <h2 style="margin-top:18px;">Prémios</h2>
       <p class="sub">Do melhor para o pior</p>
-
       <div class="card top">
         <div class="big">10 shots</div>
         <div class="small">5 shots em linha</div>
       </div>
-
       <div class="card top">
         <div class="big">10 finos</div>
         <div class="small">5 copos de cerveja em linha</div>
       </div>
-
       <div class="card top">
         <div class="big">5 shots</div>
         <div class="small">4 shots em linha</div>
       </div>
-
       <div class="card top">
         <div class="big">5 finos</div>
         <div class="small">4 copos de cerveja em linha</div>
       </div>
-
       <div class="card mid">
         <div class="big">3 shots</div>
         <div class="small">3 shots em linha</div>
       </div>
-
       <div class="card mid" style="margin-bottom:0;">
         <div class="big">3 finos</div>
         <div class="small">3 copos de cerveja em linha</div>
       </div>
     </aside>
-
     <section class="center">
       <div class="machine" id="machine">
         <div class="machine-inner">
           <div class="marquee" id="marquee">Cheers O Bar · Pack de 6 shots · Boa sorte</div>
-
           <div class="topbar">
             <div class="screen">
               <div class="label">Modo</div>
               <div class="value" id="modeLabel">Standby</div>
             </div>
-
             <div class="title">
               <span class="mini">Cheers O Bar</span>
               <span class="main">Slot dos Shots</span>
               <span class="subt">A linha do meio paga prémio</span>
             </div>
-
             <div class="screen">
               <div class="label">Último prémio</div>
               <div class="value" id="lastPrize">Boa sorte</div>
             </div>
           </div>
-
           <div class="reels-shell" id="reelsShell">
             <div class="payline"></div>
             <div class="flash" id="flash"></div>
             <canvas class="fireworks" id="fireworks"></canvas>
-
             <div class="reels">
               <div class="reel-window"><div class="reel-track" id="reel0"></div></div>
               <div class="reel-window"><div class="reel-track" id="reel1"></div></div>
@@ -955,7 +696,6 @@
               <div class="reel-window"><div class="reel-track" id="reel3"></div></div>
               <div class="reel-window"><div class="reel-track" id="reel4"></div></div>
             </div>
-
             <div class="overlay" id="overlay">
               <div class="overlay-card">
                 <div class="overlay-kicker" id="overlayKicker">Cheers O Bar</div>
@@ -964,22 +704,18 @@
               </div>
             </div>
           </div>
-
           <div class="controls">
             <div class="status idle" id="statusBox">
               <div class="label">Estado</div>
               <div class="value" id="statusText">Clica para começar</div>
             </div>
-
             <button class="spin" id="spinBtn" type="button">SPIN</button>
-
             <div class="status idle">
               <div class="label">Dica</div>
               <div class="value hint">Linha do meio</div>
             </div>
           </div>
         </div>
-
         <div class="lever" aria-hidden="true">
           <button class="lever-hit" id="leverHit" type="button"></button>
           <div class="lever-base"></div>
@@ -989,7 +725,6 @@
       </div>
     </section>
   </div>
-
   <script>
     const reelEls = [0,1,2,3,4].map(i => document.getElementById('reel' + i));
     const machine = document.getElementById('machine');
@@ -1008,20 +743,28 @@
     const overlayKicker = document.getElementById('overlayKicker');
     const flash = document.getElementById('flash');
     const fireworksCanvas = document.getElementById('fireworks');
-    const ctx = fireworksCanvas.getContext('2d', { alpha:true, desynchronized:true });
-
+    let ctx = null;
+    if (fireworksCanvas && fireworksCanvas.getContext) {
+      try{
+        ctx = fireworksCanvas.getContext('2d', { alpha:true, desynchronized:true });
+      }catch(e){
+        ctx = null;
+      }
+      if(!ctx){
+        try{
+          ctx = fireworksCanvas.getContext('2d');
+        }catch(e){
+          ctx = null;
+        }
+      }
+    }
     const IDLE_MS = 30000;
-    const REEL_ITEMS = 24;
-    const STOP_INDEX = 14;
-    const DPR_CAP = 1.1;
-    const FIREWORKS_PARTICLES_BIG = 7;
-    const FIREWORKS_PARTICLES_MEGA = 11;
-    const REEL_STAGGER_MS = 80;
-    const REEL_TRAVEL_MIN = 3;
-    const REEL_TRAVEL_STEP = 1;
-    const REEL_STOP_BOUNCE = 10;
-    const REEL_STOP_BOUNCE_LOW = 6;
-
+    // Performance knobs para TVs
+    const REEL_ITEMS = 24;              // DOM fixo por carretel
+    const STOP_INDEX = 14;              // índice que pára na linha do meio
+    const DPR_CAP = 1.0;                // cap da resolução do canvas
+    const FIREWORKS_PARTICLES_BIG = 12; // por explosão
+    const FIREWORKS_PARTICLES_MEGA = 18;
     let started = false;
     let spinning = false;
     let attractMode = false;
@@ -1029,21 +772,23 @@
     let attractTimer = null;
     let attractTextTimer = null;
     let resultCurrent = null;
-
     let fireworksRunning = false;
     let fireworksRaf = null;
     let fireworksParticles = [];
     let fireworksStopTimer = null;
-    let cellH = 92;
-
+    let cellH = 120;
     function isLowPerfDevice(){
       const mem = Number(navigator.deviceMemory || 0);
       const cores = Number(navigator.hardwareConcurrency || 0);
-      if(mem && mem <= 2) return true;
+      const ua = (navigator.userAgent || '').toLowerCase();
+      const isTV =
+        /smarttv|hbbtv|nettv|appletv|googletv|hisense|viera|bravia|tizen|web0s|webos/.test(ua);
+      if(isTV) return true;
+      if(mem && mem <= 3) return true;
       if(cores && cores <= 4) return true;
+      if(!mem && !cores) return true;
       return false;
     }
-
     const symbols = [
       { id:'shot', label:'SHOT', icon:'🥃', className:'shot' },
       { id:'beer', label:'FINO', icon:'🍺', className:'beer' },
@@ -1051,32 +796,24 @@
       { id:'ice',  label:'GELO', icon:'🧊', className:'ice'  },
       { id:'bull', label:'BULL', icon:'⚡', className:'bull' }
     ];
-
     const allIds = symbols.map(s => s.id);
     const map = Object.fromEntries(symbols.map(s => [s.id, s]));
-
     const outcomes = [
       { key:'lose', weight:30, symbol:null, len:0, status:'lose', mode:'Cheers Vegas', prize:'Sem prémio', text:'Tenta outra vez', overlay:'SEM PRÉMIO', tier:'none' },
-
       { key:'s3',  weight:30, symbol:'shot', len:3, status:'shot', mode:'Shot Bonus',   prize:'3 shots',  text:'Ganhaste 3 shots',  overlay:'3 SHOTS',  tier:'big' },
       { key:'s5',  weight:5,  symbol:'shot', len:4, status:'shot', mode:'Shot Rush',    prize:'5 shots',  text:'Ganhaste 5 shots',  overlay:'5 SHOTS',  tier:'big' },
       { key:'s10', weight:2,  symbol:'shot', len:5, status:'shot', mode:'Shot Jackpot', prize:'10 shots', text:'Jackpot 10 shots', overlay:'10 SHOTS', tier:'mega' },
-
       { key:'b3',  weight:31, symbol:'beer', len:3, status:'beer', mode:'Beer Bonus',   prize:'3 finos',  text:'Ganhaste 3 finos',  overlay:'3 FINOS',  tier:'big' },
       { key:'b5',  weight:5,  symbol:'beer', len:4, status:'beer', mode:'Beer Rush',    prize:'5 finos',  text:'Ganhaste 5 finos',  overlay:'5 FINOS',  tier:'big' },
       { key:'b10', weight:2,  symbol:'beer', len:5, status:'beer', mode:'Beer Jackpot', prize:'10 finos', text:'Jackpot 10 finos', overlay:'10 FINOS', tier:'mega' }
     ];
-
     const reels = [];
-
     function rand(arr){ return arr[(Math.random() * arr.length) | 0]; }
     function randInt(min, max){ return ((Math.random() * (max - min + 1)) | 0) + min; }
-
     function longestRun(line){
       let best = { symbol:null, len:1, start:0 };
       let len = 1;
       let start = 0;
-
       for(let i = 1; i <= line.length; i++){
         if(i < line.length && line[i] === line[i - 1]){
           len++;
@@ -1088,7 +825,6 @@
       }
       return best;
     }
-
     function weightedOutcome(){
       const total = outcomes.reduce((sum, item) => sum + item.weight, 0);
       let r = Math.random() * total;
@@ -1098,7 +834,6 @@
       }
       return outcomes[outcomes.length - 1];
     }
-
     function makeLoseLine(){
       let line;
       do{
@@ -1106,16 +841,13 @@
       }while(longestRun(line).len >= 3);
       return line;
     }
-
     function makeWinLine(symbolId, len){
       let line;
       let start;
       do{
         start = randInt(0, 5 - len);
         line = Array(5).fill(null);
-
         for(let i = start; i < start + len; i++) line[i] = symbolId;
-
         for(let i = 0; i < 5; i++){
           if(line[i]) continue;
           line[i] = rand(allIds.filter(id => id !== symbolId));
@@ -1125,32 +857,25 @@
         longestRun(line).len !== len ||
         longestRun(line).start !== start
       );
-
       return { line, start };
     }
-
     function buildResult(){
       const picked = weightedOutcome();
       if(picked.key === 'lose') return { ...picked, line:makeLoseLine(), start:-1 };
       const built = makeWinLine(picked.symbol, picked.len);
       return { ...picked, line:built.line, start:built.start };
     }
-
     function createCell(){
       const root = document.createElement('div');
       root.className = 'symbol';
-
       const icon = document.createElement('div');
       icon.className = 'icon';
-
       const txt = document.createElement('div');
       txt.className = 'txt';
-
       root.appendChild(icon);
       root.appendChild(txt);
       return { root, icon, txt };
     }
-
     function setCellSymbol(cell, id){
       const s = map[id];
       cell.root.className = 'symbol ' + s.className;
@@ -1158,37 +883,30 @@
       cell.icon.textContent = s.icon;
       cell.txt.textContent = s.label;
     }
-
     function buildReelsOnce(){
       reels.length = 0;
-
       reelEls.forEach((trackEl) => {
         const frag = document.createDocumentFragment();
         const cells = [];
-
         for(let k = 0; k < REEL_ITEMS; k++){
           const c = createCell();
           setCellSymbol(c, rand(allIds));
           cells.push(c);
           frag.appendChild(c.root);
         }
-
         trackEl.textContent = '';
         trackEl.appendChild(frag);
         reels.push({ trackEl, cells, y:0, winRoot:null });
       });
-
       measureCellH();
       centerReelsInstant();
     }
-
     function measureCellH(){
       const first = reels[0]?.cells?.[0]?.root;
       if(!first) return;
       const h = first.getBoundingClientRect().height;
       cellH = h || cellH;
     }
-
     function clearMarks(){
       for(const r of reels){
         if(r.winRoot){
@@ -1197,7 +915,6 @@
         }
       }
     }
-
     function markWinningCells(result){
       if(result.start < 0) return;
       for(let i = result.start; i < result.start + result.len; i++){
@@ -1209,52 +926,35 @@
         }
       }
     }
-
     function setStatus(type, text){
       statusBox.className = 'status ' + type;
       statusText.textContent = text;
     }
-
     function updateMarquee(result){
       marquee.textContent = (result.start < 0)
         ? 'Cheers O Bar · Sem prémio · Tenta outra vez'
         : ('Cheers O Bar · Prémio: ' + result.prize.toUpperCase());
     }
-
     function clearEffects(){
       clearMarks();
       overlay.className = 'overlay';
       flash.className = 'flash';
       stopFireworks(true);
     }
-
     function clearIdle(){
-      if(idleTimer){
-        clearTimeout(idleTimer);
-        idleTimer = null;
-      }
+      if(idleTimer){ clearTimeout(idleTimer); idleTimer = null; }
     }
-
     function scheduleIdle(){
       clearIdle();
       if(!started || spinning || attractMode) return;
       idleTimer = setTimeout(startAttractMode, IDLE_MS);
     }
-
     function stopAttractIntervals(){
-      if(attractTimer){
-        clearInterval(attractTimer);
-        attractTimer = null;
-      }
-      if(attractTextTimer){
-        clearInterval(attractTextTimer);
-        attractTextTimer = null;
-      }
+      if(attractTimer){ clearInterval(attractTimer); attractTimer = null; }
+      if(attractTextTimer){ clearInterval(attractTextTimer); attractTextTimer = null; }
     }
-
     function startAttractMode(){
       if(!started || spinning || attractMode) return;
-
       attractMode = true;
       clearEffects();
       modeLabel.textContent = 'Attract Mode';
@@ -1262,26 +962,21 @@
       setStatus('idle', 'TOCA PARA JOGAR');
       statusText.classList.add('pulse');
       marquee.textContent = 'Cheers O Bar · Puxa a alavanca · Pede o pack de 6 shots';
-
       demoSpin();
       attractTimer = setInterval(demoSpin, 6200);
-
       const msgs = ['TOCA PARA JOGAR','PUXA A ALAVANCA','CHEERS O BAR','PACK DE 6 SHOTS'];
       attractTextTimer = setInterval(() => {
         if(!attractMode) return;
         setStatus('idle', rand(msgs));
         statusText.classList.add('pulse');
-      }, 2200);
+      }, 2000);
     }
-
     function stopAttractMode(){
       if(!attractMode) return;
-
       attractMode = false;
       stopAttractIntervals();
       clearEffects();
       machine.classList.remove('pull');
-      reelsShell.classList.remove('spinning');
       statusText.classList.remove('pulse');
       modeLabel.textContent = 'Cheers Vegas';
       lastPrize.textContent = 'Boa sorte';
@@ -1289,7 +984,6 @@
       setStatus('idle', 'Carrega para jogar');
       scheduleIdle();
     }
-
     function setTargetLine(line){
       for(let i = 0; i < 5; i++){
         const reel = reels[i];
@@ -1299,121 +993,48 @@
         }
       }
     }
-
-    function finalReelY(){
-      return -((STOP_INDEX * cellH) - cellH);
-    }
-
-    function maxTravelCells(){
-      return Math.max(2, REEL_ITEMS - STOP_INDEX - 3);
-    }
-
     function centerReelsInstant(){
-      const finalY = finalReelY();
-
       for(const reel of reels){
-        reel.y = finalY;
+        const offset = STOP_INDEX * cellH - cellH;
+        reel.y = -offset;
         reel.trackEl.style.transition = 'none';
-        reel.trackEl.style.transform = `translate3d(0,${finalY}px,0)`;
-        reel.trackEl.parentElement.classList.remove('spinning');
+        reel.trackEl.style.transform = 'translate3d(0,' + reel.y + 'px,0)';
       }
-
-      reelsShell.classList.remove('spinning');
     }
-
-    function primeSpinMotion(){
-      const maxTravel = maxTravelCells();
-
-      reelsShell.classList.add('spinning');
-
+    function animateSpin(durationBase, intensity = 1){
+      const endY = -(STOP_INDEX * cellH - cellH);
       for(let i = 0; i < reels.length; i++){
         const reel = reels[i];
-        const finalY = finalReelY();
-        const extra = Math.min(
-          maxTravel,
-          REEL_TRAVEL_MIN + i * REEL_TRAVEL_STEP + randInt(0, 1)
-        );
-        const startY = finalY - (extra * cellH);
-
-        reel.y = startY;
+        const spinCells = Math.max(6, Math.min(14, ((8 + i * 2 + randInt(0, 4)) * intensity) | 0));
+        const startY = Math.min(0, endY + spinCells * cellH);
         reel.trackEl.style.transition = 'none';
-        reel.trackEl.style.transform = `translate3d(0,${startY}px,0)`;
-        reel.trackEl.parentElement.classList.add('spinning');
+        reel.trackEl.style.transform = 'translate3d(0,' + startY + 'px,0)';
       }
-
-      reelsShell.offsetHeight;
-    }
-
-    function animateSpin(durationBase = 980){
-      const low = document.body.classList.contains('perf-low');
-      const bounce = low ? REEL_STOP_BOUNCE_LOW : REEL_STOP_BOUNCE;
-      const settleBase = low ? 110 : 140;
-
-      for(let i = 0; i < reels.length; i++){
-        const reel = reels[i];
-        const finalY = finalReelY();
-        const overshootY = finalY + bounce;
-        const rollMs = durationBase + i * 140;
-        const delay = i * REEL_STAGGER_MS;
-
-        setTimeout(() => {
-          reel.trackEl.style.transition =
-            `transform ${rollMs}ms cubic-bezier(.12,.78,.16,1)`;
-          reel.trackEl.style.transform = `translate3d(0,${overshootY}px,0)`;
-        }, delay);
-
-        setTimeout(() => {
-          reel.trackEl.style.transition =
-            `transform ${settleBase + i * 16}ms cubic-bezier(.22,1.15,.30,1)`;
-          reel.trackEl.style.transform = `translate3d(0,${finalY}px,0)`;
-        }, delay + rollMs);
-
-        setTimeout(() => {
-          reel.y = finalY;
-          reel.trackEl.style.transition = 'none';
-          reel.trackEl.parentElement.classList.remove('spinning');
-
-          if(i === reels.length - 1){
-            reelsShell.classList.remove('spinning');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          for(let i = 0; i < reels.length; i++){
+            const reel = reels[i];
+            const duration = durationBase + i * 0.22;
+            reel.y = endY;
+            reel.trackEl.style.transition = 'transform ' + duration + 's cubic-bezier(.18,.8,.16,1)';
+            reel.trackEl.style.transform = 'translate3d(0,' + reel.y + 'px,0)';
           }
-        }, delay + rollMs + settleBase + 30 + i * 16);
-      }
+        });
+      });
     }
-
-    function getSpinResolveMs(durationBase = 980){
-      const low = document.body.classList.contains('perf-low');
-      const settleBase = low ? 110 : 140;
-      const last = reels.length - 1;
-
-      return (
-        (last * REEL_STAGGER_MS) +
-        (durationBase + last * 140) +
-        (settleBase + last * 16) +
-        60
-      );
-    }
-
     function demoSpin(){
       if(!attractMode || spinning) return;
-
       machine.classList.add('pull');
       setTargetLine(Array.from({ length:5 }, () => rand(allIds)));
-      primeSpinMotion();
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => animateSpin(680));
-      });
-
-      setTimeout(() => machine.classList.remove('pull'), 200);
+      animateSpin(1.05, document.body.classList.contains('perf-low') ? 0.85 : 1);
+      setTimeout(() => machine.classList.remove('pull'), 220);
     }
-
     function tierOverlayText(tier){
-      return tier === 'mega' ? 'GRANDE PRÉMIO' : 'PRÉMIO';
+      if(tier === 'mega') return 'GRANDE PRÉMIO';
+      return 'PRÉMIO';
     }
-
     function celebrate(result){
       if(result.start < 0) return;
-
       clearMarks();
       markWinningCells(result);
       flash.className = 'flash show';
@@ -1421,14 +1042,12 @@
       overlayMain.textContent = result.overlay;
       overlaySub.textContent = tierOverlayText(result.tier);
       overlayKicker.textContent = (result.tier === 'mega') ? 'CHEERS O BAR JACKPOT' : 'CHEERS O BAR';
-      startFireworks(result.tier);
+      if(!document.body.classList.contains('perf-low')){
+        startFireworks(result.tier);
+      }
     }
-
     function spin(){
       if(!started || spinning || attractMode) return;
-
-      const durationBase = document.body.classList.contains('perf-low') ? 860 : 980;
-
       spinning = true;
       clearIdle();
       clearEffects();
@@ -1436,17 +1055,10 @@
       machine.classList.add('pull');
       modeLabel.textContent = 'Spinning';
       setStatus('idle', 'A rodar...');
-
       resultCurrent = buildResult();
       setTargetLine(resultCurrent.line);
-      primeSpinMotion();
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => animateSpin(durationBase));
-      });
-
-      setTimeout(() => machine.classList.remove('pull'), 220);
-
+      animateSpin(1.75, document.body.classList.contains('perf-low') ? 0.9 : 1);
+      setTimeout(() => machine.classList.remove('pull'), 240);
       setTimeout(() => {
         const r = resultCurrent;
         lastPrize.textContent = r.prize;
@@ -1457,83 +1069,67 @@
         spinBtn.classList.remove('disabled');
         spinning = false;
         scheduleIdle();
-      }, getSpinResolveMs(durationBase));
+      }, 2600);
     }
-
     function resizeFireworks(){
+      if(!fireworksCanvas || !ctx) return;
       const rect = reelsShell.getBoundingClientRect();
       const ratio = Math.min(window.devicePixelRatio || 1, DPR_CAP);
-
       fireworksCanvas.width = Math.max(1, (rect.width * ratio) | 0);
       fireworksCanvas.height = Math.max(1, (rect.height * ratio) | 0);
       fireworksCanvas.style.width = rect.width + 'px';
       fireworksCanvas.style.height = rect.height + 'px';
-
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
     }
-
     function stopFireworks(clearAll = false){
       fireworksRunning = false;
-
-      if(fireworksStopTimer){
-        clearTimeout(fireworksStopTimer);
-        fireworksStopTimer = null;
-      }
-
+      if(fireworksStopTimer){ clearTimeout(fireworksStopTimer); fireworksStopTimer = null; }
       if(clearAll){
         fireworksParticles = [];
-        if(fireworksRaf){
-          cancelAnimationFrame(fireworksRaf);
-          fireworksRaf = null;
+        if(fireworksRaf){ cancelAnimationFrame(fireworksRaf); fireworksRaf = null; }
+        if(ctx && fireworksCanvas){
+          ctx.clearRect(0, 0, fireworksCanvas.clientWidth || 0, fireworksCanvas.clientHeight || 0);
         }
-        ctx.clearRect(0, 0, fireworksCanvas.clientWidth || 0, fireworksCanvas.clientHeight || 0);
       }
     }
-
     function addBurst(x, y, count, color){
       for(let i = 0; i < count; i++){
         const a = (Math.PI * 2 * i) / count;
-        const speed = 0.95 + Math.random() * 1.65;
+        const speed = 1.1 + Math.random() * 2.1;
         fireworksParticles.push({
           x, y,
           vx: Math.cos(a) * speed,
           vy: Math.sin(a) * speed,
           life: 1,
-          gravity: 0.032,
-          size: 1.6 + Math.random() * 1.4,
+          gravity: 0.034,
+          size: 1.8 + Math.random() * 1.8,
           color
         });
       }
     }
-
     function runFireworks(){
+      if(!ctx || !fireworksCanvas) return;
       const w = fireworksCanvas.clientWidth || 0;
       const h = fireworksCanvas.clientHeight || 0;
-
       ctx.clearRect(0, 0, w, h);
-
       for(let i = fireworksParticles.length - 1; i >= 0; i--){
         const p = fireworksParticles[i];
         p.x += p.vx;
         p.y += p.vy;
         p.vx *= 0.988;
         p.vy = p.vy * 0.992 + p.gravity;
-        p.life -= 0.042;
-
+        p.life -= 0.030;
         if(p.life <= 0){
           fireworksParticles.splice(i, 1);
           continue;
         }
-
         ctx.globalAlpha = p.life;
         ctx.fillStyle = p.color;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       }
-
       ctx.globalAlpha = 1;
-
       if(fireworksRunning || fireworksParticles.length){
         fireworksRaf = requestAnimationFrame(runFireworks);
       }else{
@@ -1541,42 +1137,35 @@
         ctx.clearRect(0, 0, w, h);
       }
     }
-
     function startFireworks(tier){
+      if(!ctx || !fireworksCanvas) return;
+      if(document.body.classList.contains('perf-low')) return;
       stopFireworks(true);
       resizeFireworks();
       fireworksRunning = true;
-
       const w = fireworksCanvas.clientWidth || reelsShell.clientWidth || 800;
       const h = fireworksCanvas.clientHeight || reelsShell.clientHeight || 400;
       const bursts = (tier === 'mega') ? 3 : 2;
       const particles = (tier === 'mega') ? FIREWORKS_PARTICLES_MEGA : FIREWORKS_PARTICLES_BIG;
-
       for(let i = 0; i < bursts; i++){
         setTimeout(() => {
-          const x = randInt((w * 0.20) | 0, (w * 0.80) | 0);
-          const y = randInt((h * 0.18) | 0, (h * 0.44) | 0);
+          const x = randInt((w * 0.18) | 0, (w * 0.82) | 0);
+          const y = randInt((h * 0.16) | 0, (h * 0.48) | 0);
           const color = rand(['#ffd97a', '#ffffff', '#dbe8ff', '#ffefb2']);
           addBurst(x, y, particles, color);
           if(!fireworksRaf) runFireworks();
-        }, i * 180);
+        }, i * 220);
       }
-
-      fireworksStopTimer = setTimeout(() => {
-        fireworksRunning = false;
-      }, (tier === 'mega') ? 1100 : 760);
+      fireworksStopTimer = setTimeout(() => { fireworksRunning = false; }, (tier === 'mega') ? 1400 : 900);
     }
-
     async function enterFullscreen(){
       if(document.fullscreenElement) return;
       const el = document.documentElement;
       if(!el.requestFullscreen) return;
       try{ await el.requestFullscreen(); }catch(e){}
     }
-
     function dismissBoot(){
       if(started) return;
-
       started = true;
       boot.classList.add('hidden');
       enterFullscreen();
@@ -1586,30 +1175,18 @@
       marquee.textContent = 'Cheers O Bar · Pack de 6 shots · Boa sorte';
       scheduleIdle();
     }
-
     function primaryAction(){
-      if(!started){
-        dismissBoot();
-        return;
-      }
-      if(attractMode){
-        stopAttractMode();
-        return;
-      }
-      if(!spinning){
-        spin();
-      }
+      if(!started){ dismissBoot(); return; }
+      if(attractMode){ stopAttractMode(); return; }
+      if(!spinning){ spin(); }
     }
-
     function handleActivity(){
       if(!started || spinning || attractMode) return;
       scheduleIdle();
     }
-
     document.addEventListener('pointerdown', primaryAction);
     document.addEventListener('mousemove', handleActivity, { passive:true });
     document.addEventListener('touchstart', handleActivity, { passive:true });
-
     document.addEventListener('keydown', (e) => {
       if(e.key === 'Enter' || e.key === ' ' || e.code === 'Space'){
         e.preventDefault();
@@ -1618,10 +1195,8 @@
         handleActivity();
       }
     });
-
     spinBtn.addEventListener('click', (e) => e.preventDefault());
     leverHit.addEventListener('click', (e) => e.preventDefault());
-
     let resizeRaf = 0;
     window.addEventListener('resize', () => {
       if(resizeRaf) cancelAnimationFrame(resizeRaf);
@@ -1632,20 +1207,14 @@
         if(!spinning) centerReelsInstant();
       });
     });
-
     document.addEventListener('visibilitychange', () => {
-      if(document.hidden){
-        clearIdle();
-      }else{
-        handleActivity();
-      }
+      if(document.hidden){ clearIdle(); }
+      else{ handleActivity(); }
     });
-
     function init(){
       if(isLowPerfDevice()){
         document.body.classList.add('perf-low');
       }
-
       buildReelsOnce();
       resizeFireworks();
       setStatus('idle', 'Clica para começar');
@@ -1653,7 +1222,6 @@
       lastPrize.textContent = 'Boa sorte';
       marquee.textContent = 'Cheers O Bar · Pack de 6 shots · Boa sorte';
     }
-
     init();
   </script>
 </body>
