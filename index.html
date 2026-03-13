@@ -2,16 +2,14 @@
 <html lang="pt-PT">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  />
-  <title>Cheers O Bar - Slot dos Shots</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Cheers O Bar - Slot dos Shots 1280x720</title>
 
   <style>
     :root{
-      --bg:#0b0d11;
-      --bg2:#131722;
+      --stage-w:1280px;
+      --stage-h:720px;
+
       --gold:#e5b85c;
       --silver:#dbe3ef;
       --bronze:#b97334;
@@ -20,10 +18,10 @@
       --text:#f7f8fb;
       --muted:#b9c0cb;
 
-      --cell-h:clamp(64px, 10vh, 96px);
-      --reel-gap:clamp(6px, .7vw, 14px);
-      --outer-pad:clamp(8px, 1vw, 16px);
-      --panel-w:clamp(210px, 23vw, 360px);
+      --cell-h:92px;
+      --reel-gap:12px;
+      --outer-pad:14px;
+      --panel-w:250px;
     }
 
     *{
@@ -36,7 +34,6 @@
     html,body{
       width:100%;
       height:100%;
-      min-height:100%;
       margin:0;
       overflow:hidden;
       font-family:Arial, Helvetica, sans-serif;
@@ -51,23 +48,31 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      min-height:100vh;
-      min-height:100svh;
-      min-height:100dvh;
+    }
+
+    .viewport{
+      position:fixed;
+      inset:0;
+      overflow:hidden;
+    }
+
+    .stage{
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:var(--stage-w);
+      height:var(--stage-h);
+      transform:translate(-50%, -50%) scale(1);
+      transform-origin:center center;
     }
 
     .boot{
-      position:fixed;
+      position:absolute;
       inset:0;
       z-index:60;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:
-        calc(16px + env(safe-area-inset-top))
-        calc(16px + env(safe-area-inset-right))
-        calc(16px + env(safe-area-inset-bottom))
-        calc(16px + env(safe-area-inset-left));
       background:rgba(4,6,10,.92);
       transition:.25s opacity ease, .25s visibility ease;
     }
@@ -79,7 +84,7 @@
     }
 
     .boot-card{
-      width:min(92vw,780px);
+      width:760px;
       background:linear-gradient(180deg, #1f2531, #11161d);
       border:2px solid rgba(229,184,92,.45);
       border-radius:28px;
@@ -90,7 +95,7 @@
 
     .boot-title{
       margin:0;
-      font-size:clamp(26px, 4vw, 68px);
+      font-size:64px;
       line-height:.95;
       font-weight:900;
       text-transform:uppercase;
@@ -101,7 +106,7 @@
 
     .boot-sub{
       margin-top:12px;
-      font-size:clamp(12px, 1.2vw, 22px);
+      font-size:20px;
       color:#eef2f8;
       text-transform:uppercase;
       line-height:1.45;
@@ -118,21 +123,15 @@
       font-weight:900;
       text-transform:uppercase;
       letter-spacing:.08em;
-      font-size:clamp(12px, 1vw, 18px);
+      font-size:18px;
     }
 
     .app{
-      width:100vw;
-      height:100vh;
-      height:100svh;
-      height:100dvh;
-      padding:
-        calc(var(--outer-pad) + env(safe-area-inset-top))
-        calc(var(--outer-pad) + env(safe-area-inset-right))
-        calc(var(--outer-pad) + env(safe-area-inset-bottom))
-        calc(var(--outer-pad) + env(safe-area-inset-left));
+      width:100%;
+      height:100%;
+      padding:var(--outer-pad);
       display:grid;
-      grid-template-columns:var(--panel-w) minmax(0, 1fr);
+      grid-template-columns:var(--panel-w) 1fr;
       gap:var(--outer-pad);
       align-items:stretch;
     }
@@ -151,23 +150,23 @@
         linear-gradient(180deg, var(--panel), var(--panel2));
       border:1px solid rgba(255,255,255,.09);
       border-radius:22px;
-      padding:12px;
+      padding:14px;
       box-shadow:0 10px 22px rgba(0,0,0,.22);
       overflow:hidden;
     }
 
     .panel h2{
-      margin:0 0 5px;
-      font-size:clamp(16px, 1.3vw, 28px);
+      margin:0 0 6px;
+      font-size:22px;
       text-transform:uppercase;
       color:var(--gold);
       letter-spacing:.04em;
     }
 
     .sub{
-      margin:0 0 8px;
+      margin:0 0 10px;
       color:var(--muted);
-      font-size:clamp(8px, .7vw, 12px);
+      font-size:10px;
       text-transform:uppercase;
       letter-spacing:.12em;
       font-weight:700;
@@ -177,21 +176,21 @@
       background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
       border:1px solid rgba(255,255,255,.08);
       border-radius:14px;
-      padding:9px 10px;
-      margin-bottom:7px;
+      padding:10px 11px;
+      margin-bottom:8px;
       min-height:0;
     }
 
     .card .big{
-      font-size:clamp(10px, .9vw, 18px);
+      font-size:16px;
       font-weight:900;
       text-transform:uppercase;
       line-height:1.15;
     }
 
     .card .small{
-      margin-top:3px;
-      font-size:clamp(7px, .7vw, 12px);
+      margin-top:4px;
+      font-size:10px;
       color:#d7dce5;
       text-transform:uppercase;
       font-weight:700;
@@ -243,14 +242,13 @@
       padding:10px;
       background:linear-gradient(180deg, #1b2028, #090c11);
       display:grid;
-      grid-template-rows:auto auto minmax(0, 1fr) auto;
+      grid-template-rows:38px 72px 1fr 96px;
       gap:8px;
       overflow:hidden;
       min-height:0;
     }
 
     .marquee{
-      min-height:36px;
       border-radius:14px;
       padding:6px 10px;
       text-align:center;
@@ -259,7 +257,7 @@
         linear-gradient(90deg, rgba(59,231,255,.10), transparent 40%, rgba(255,59,212,.10));
       border:1px solid rgba(255,255,255,.12);
       font-weight:900;
-      font-size:clamp(10px, .9vw, 18px);
+      font-size:14px;
       text-transform:uppercase;
       letter-spacing:.05em;
       display:flex;
@@ -290,14 +288,14 @@
 
     .topbar{
       display:grid;
-      grid-template-columns:minmax(110px, .9fr) 1.6fr minmax(110px, .9fr);
+      grid-template-columns:180px 1fr 180px;
       gap:8px;
       align-items:center;
       min-width:0;
     }
 
     .screen{
-      min-height:60px;
+      height:72px;
       border-radius:14px;
       padding:8px 10px;
       background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
@@ -309,7 +307,7 @@
     }
 
     .screen .label{
-      font-size:clamp(8px, .7vw, 11px);
+      font-size:10px;
       text-transform:uppercase;
       color:var(--muted);
       letter-spacing:.22em;
@@ -317,8 +315,8 @@
     }
 
     .screen .value{
-      margin-top:4px;
-      font-size:clamp(12px, 1vw, 26px);
+      margin-top:5px;
+      font-size:19px;
       font-weight:900;
       text-transform:uppercase;
       white-space:nowrap;
@@ -336,26 +334,26 @@
     .title .mini{
       display:block;
       color:var(--silver);
-      font-size:clamp(8px, .8vw, 13px);
+      font-size:11px;
       letter-spacing:.18em;
       font-weight:700;
     }
 
     .title .main{
       display:block;
-      font-size:clamp(22px, 2.6vw, 46px);
+      font-size:40px;
       font-weight:900;
       color:#fff;
-      margin-top:3px;
+      margin-top:4px;
       text-shadow:0 2px 0 rgba(0,0,0,.25);
     }
 
     .title .subt{
       display:block;
       color:var(--gold);
-      font-size:clamp(9px, .85vw, 14px);
+      font-size:12px;
       letter-spacing:.12em;
-      margin-top:3px;
+      margin-top:4px;
       font-weight:700;
     }
 
@@ -444,7 +442,7 @@
       flex-direction:column;
       align-items:center;
       justify-content:center;
-      gap:4px;
+      gap:5px;
       border-top:1px solid rgba(255,255,255,.04);
       border-bottom:1px solid rgba(0,0,0,.25);
       background:
@@ -469,13 +467,13 @@
     }
 
     .symbol .icon{
-      font-size:clamp(20px, 2.3vw, 38px);
+      font-size:34px;
       line-height:1;
       transform:translateZ(0);
     }
 
     .symbol .txt{
-      font-size:clamp(10px, .9vw, 16px);
+      font-size:14px;
       font-weight:900;
       letter-spacing:.04em;
     }
@@ -520,9 +518,9 @@
     }
 
     .overlay-card{
-      width:min(92%, 840px);
+      width:820px;
       border-radius:24px;
-      padding:20px 24px;
+      padding:22px 24px;
       text-align:center;
       background:rgba(15,18,25,.90);
       border:2px solid rgba(255,255,255,.16);
@@ -531,7 +529,7 @@
     }
 
     .overlay-kicker{
-      font-size:clamp(12px, .95vw, 20px);
+      font-size:18px;
       font-weight:800;
       text-transform:uppercase;
       color:#fff6d9;
@@ -539,8 +537,8 @@
     }
 
     .overlay-main{
-      margin-top:8px;
-      font-size:clamp(34px, 5vw, 120px);
+      margin-top:10px;
+      font-size:94px;
       line-height:.9;
       font-weight:900;
       text-transform:uppercase;
@@ -551,8 +549,8 @@
     }
 
     .overlay-sub{
-      margin-top:8px;
-      font-size:clamp(12px, .95vw, 22px);
+      margin-top:10px;
+      font-size:20px;
       font-weight:800;
       text-transform:uppercase;
       letter-spacing:.12em;
@@ -561,7 +559,7 @@
 
     .overlay-hint{
       margin-top:10px;
-      font-size:clamp(10px, .8vw, 16px);
+      font-size:14px;
       font-weight:800;
       text-transform:uppercase;
       color:#d9dfeb;
@@ -614,14 +612,14 @@
 
     .controls{
       display:grid;
-      grid-template-columns:1fr auto 1fr;
+      grid-template-columns:1fr 140px 1fr;
       gap:8px;
       align-items:center;
       min-width:0;
     }
 
     .status{
-      min-height:56px;
+      height:86px;
       border-radius:14px;
       padding:8px 10px;
       background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
@@ -633,7 +631,7 @@
     }
 
     .status .label{
-      font-size:clamp(8px, .7vw, 11px);
+      font-size:10px;
       text-transform:uppercase;
       color:var(--muted);
       letter-spacing:.22em;
@@ -641,8 +639,8 @@
     }
 
     .status .value{
-      margin-top:4px;
-      font-size:clamp(11px, .95vw, 22px);
+      margin-top:6px;
+      font-size:18px;
       font-weight:900;
       text-transform:uppercase;
       white-space:nowrap;
@@ -656,13 +654,13 @@
     .status.lose .value{ color:#e6c17c; }
 
     .spin{
-      width:clamp(80px, 8.8vw, 150px);
-      height:clamp(80px, 8.8vw, 150px);
+      width:140px;
+      height:140px;
       border:none;
       border-radius:50%;
       background:radial-gradient(circle at 35% 28%, #fff7e4 0%, #f0c973 20%, #c38a2f 54%, #7a4b12 100%);
       color:#221707;
-      font-size:clamp(14px, 1.3vw, 30px);
+      font-size:28px;
       font-weight:900;
       text-transform:uppercase;
       letter-spacing:.08em;
@@ -677,7 +675,7 @@
     .lever{
       position:absolute;
       right:-80px;
-      top:90px;
+      top:96px;
       width:110px;
       height:270px;
       pointer-events:none;
@@ -729,7 +727,7 @@
     .machine.pull .lever-ball{ transform:translateY(96px) translateX(8px); }
 
     .hint{
-      font-size:clamp(11px, 1vw, 20px);
+      font-size:18px;
       font-weight:900;
       text-transform:uppercase;
     }
@@ -739,126 +737,6 @@
     @keyframes softPulse{
       0%,100%{ opacity:1; }
       50%{ opacity:.65; }
-    }
-
-    @media (max-width: 900px){
-      :root{
-        --panel-w:140px;
-        --cell-h:clamp(52px, 8vh, 70px);
-      }
-
-      .app{
-        padding:
-          calc(6px + env(safe-area-inset-top))
-          calc(6px + env(safe-area-inset-right))
-          calc(6px + env(safe-area-inset-bottom))
-          calc(6px + env(safe-area-inset-left));
-        gap:6px;
-      }
-
-      .panel{
-        padding:8px;
-        border-radius:16px;
-      }
-
-      .panel h2{ font-size:14px; }
-      .sub{ font-size:7px; margin-bottom:6px; }
-      .card{ padding:7px 8px; margin-bottom:5px; border-radius:11px; }
-      .card .big{ font-size:9px; }
-      .card .small{ font-size:7px; }
-
-      .machine{
-        padding:7px;
-        border-radius:18px;
-      }
-
-      .machine-inner{
-        padding:7px;
-        gap:6px;
-      }
-
-      .marquee{
-        min-height:26px;
-        font-size:8px;
-        padding:4px 8px;
-        border-radius:10px;
-      }
-
-      .topbar{
-        grid-template-columns:1fr 1.2fr 1fr;
-        gap:5px;
-      }
-
-      .screen,
-      .status{
-        min-height:40px;
-        padding:6px 7px;
-        border-radius:10px;
-      }
-
-      .screen .label,
-      .status .label{
-        font-size:7px;
-        letter-spacing:.16em;
-      }
-
-      .screen .value,
-      .status .value{
-        font-size:9px;
-        margin-top:3px;
-      }
-
-      .title .mini{ font-size:7px; }
-      .title .main{ font-size:18px; }
-      .title .subt{ font-size:7px; }
-
-      .reels-shell{
-        padding:7px;
-        border-radius:14px;
-      }
-
-      .reels-shell::before{
-        inset:5px;
-        border-radius:11px;
-      }
-
-      .payline{
-        left:6px;
-        right:6px;
-        top:calc(7px + var(--cell-h));
-        border-radius:11px;
-      }
-
-      .reel-window{
-        border-radius:11px;
-      }
-
-      .symbol .icon{ font-size:18px; }
-      .symbol .txt{ font-size:9px; }
-
-      .controls{
-        gap:6px;
-      }
-
-      .spin{
-        width:70px;
-        height:70px;
-        font-size:10px;
-      }
-
-      .lever{
-        display:none;
-      }
-
-      .overlay-card{
-        padding:12px 12px;
-        border-radius:14px;
-      }
-
-      .overlay-kicker{ font-size:9px; }
-      .overlay-main{ font-size:28px; }
-      .overlay-sub{ font-size:9px; }
-      .overlay-hint{ font-size:8px; }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -872,130 +750,138 @@
   </style>
 </head>
 <body>
-  <div class="boot" id="boot">
-    <div class="boot-card">
-      <h1 class="boot-title">Cheers O Bar<br><span>Slot dos Shots</span></h1>
-      <div class="boot-sub">Entrada com pack de 6 shots da casa<br>Morango ou maracujá</div>
-      <div class="boot-cta">Clique / toca / enter para começar</div>
+  <div class="viewport">
+    <div class="stage" id="stage">
+      <div class="boot" id="boot">
+        <div class="boot-card">
+          <h1 class="boot-title">Cheers O Bar<br><span>Slot dos Shots</span></h1>
+          <div class="boot-sub">Entrada com pack de 6 shots da casa<br>Morango ou maracujá</div>
+          <div class="boot-cta">Clique / toca / enter para começar</div>
+        </div>
+      </div>
+
+      <div class="app">
+        <aside class="panel">
+          <h2>Entrada</h2>
+          <p class="sub">Participação</p>
+
+          <div class="card entry">
+            <div class="big">Pede 1 pack de 6 shots da casa</div>
+            <div class="small">Morango ou maracujá</div>
+          </div>
+
+          <h2 style="margin-top:10px;">Prémios</h2>
+          <p class="sub">Do melhor para o pior</p>
+
+          <div class="card top">
+            <div class="big">10 shots</div>
+            <div class="small">5 shots em linha</div>
+          </div>
+
+          <div class="card top">
+            <div class="big">10 finos</div>
+            <div class="small">5 copos de cerveja em linha</div>
+          </div>
+
+          <div class="card top">
+            <div class="big">5 shots</div>
+            <div class="small">4 shots em linha</div>
+          </div>
+
+          <div class="card top">
+            <div class="big">5 finos</div>
+            <div class="small">4 copos de cerveja em linha</div>
+          </div>
+
+          <div class="card mid">
+            <div class="big">3 shots</div>
+            <div class="small">3 shots em linha</div>
+          </div>
+
+          <div class="card mid" style="margin-bottom:0;">
+            <div class="big">3 finos</div>
+            <div class="small">3 copos de cerveja em linha</div>
+          </div>
+        </aside>
+
+        <section class="center">
+          <div class="machine" id="machine">
+            <div class="machine-inner">
+              <div class="marquee" id="marquee">Cheers O Bar · Puxa a alavanca · Pede o pack de 6 shots</div>
+
+              <div class="topbar">
+                <div class="screen">
+                  <div class="label">Modo</div>
+                  <div class="value" id="modeLabel">Standby</div>
+                </div>
+
+                <div class="title">
+                  <span class="mini">Cheers O Bar</span>
+                  <span class="main">Slot dos Shots</span>
+                  <span class="subt">A linha do meio paga prémio</span>
+                </div>
+
+                <div class="screen">
+                  <div class="label">Último prémio</div>
+                  <div class="value" id="lastPrize">Boa sorte</div>
+                </div>
+              </div>
+
+              <div class="reels-shell" id="reelsShell">
+                <div class="payline"></div>
+                <div class="flash" id="flash"></div>
+                <canvas class="fireworks" id="fireworks"></canvas>
+
+                <div class="reels">
+                  <div class="reel-window"><div class="reel-track" id="reel0"></div></div>
+                  <div class="reel-window"><div class="reel-track" id="reel1"></div></div>
+                  <div class="reel-window"><div class="reel-track" id="reel2"></div></div>
+                  <div class="reel-window"><div class="reel-track" id="reel3"></div></div>
+                  <div class="reel-window"><div class="reel-track" id="reel4"></div></div>
+                </div>
+
+                <div class="overlay" id="overlay">
+                  <div class="overlay-card">
+                    <div class="overlay-kicker" id="overlayKicker">Cheers O Bar</div>
+                    <div class="overlay-main" id="overlayMain">3 SHOTS</div>
+                    <div class="overlay-sub" id="overlaySub">Prémio</div>
+                    <div class="overlay-hint">Pressiona qualquer tecla para fechar</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="controls">
+                <div class="status idle" id="statusBox">
+                  <div class="label">Estado</div>
+                  <div class="value" id="statusText">Clica para começar</div>
+                </div>
+
+                <button class="spin" id="spinBtn" type="button">SPIN</button>
+
+                <div class="status idle">
+                  <div class="label">Dica</div>
+                  <div class="value hint">Linha do meio</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lever" aria-hidden="true">
+              <button class="lever-hit" id="leverHit" type="button"></button>
+              <div class="lever-base"></div>
+              <div class="lever-stick"></div>
+              <div class="lever-ball"></div>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   </div>
 
-  <div class="app">
-    <aside class="panel">
-      <h2>Entrada</h2>
-      <p class="sub">Participação</p>
-
-      <div class="card entry">
-        <div class="big">Pede 1 pack de 6 shots da casa</div>
-        <div class="small">Morango ou maracujá</div>
-      </div>
-
-      <h2 style="margin-top:10px;">Prémios</h2>
-      <p class="sub">Do melhor para o pior</p>
-
-      <div class="card top">
-        <div class="big">10 shots</div>
-        <div class="small">5 shots em linha</div>
-      </div>
-
-      <div class="card top">
-        <div class="big">10 finos</div>
-        <div class="small">5 copos de cerveja em linha</div>
-      </div>
-
-      <div class="card top">
-        <div class="big">5 shots</div>
-        <div class="small">4 shots em linha</div>
-      </div>
-
-      <div class="card top">
-        <div class="big">5 finos</div>
-        <div class="small">4 copos de cerveja em linha</div>
-      </div>
-
-      <div class="card mid">
-        <div class="big">3 shots</div>
-        <div class="small">3 shots em linha</div>
-      </div>
-
-      <div class="card mid" style="margin-bottom:0;">
-        <div class="big">3 finos</div>
-        <div class="small">3 copos de cerveja em linha</div>
-      </div>
-    </aside>
-
-    <section class="center">
-      <div class="machine" id="machine">
-        <div class="machine-inner">
-          <div class="marquee" id="marquee">Cheers O Bar · Puxa a alavanca · Pede o pack de 6 shots</div>
-
-          <div class="topbar">
-            <div class="screen">
-              <div class="label">Modo</div>
-              <div class="value" id="modeLabel">Standby</div>
-            </div>
-
-            <div class="title">
-              <span class="mini">Cheers O Bar</span>
-              <span class="main">Slot dos Shots</span>
-              <span class="subt">A linha do meio paga prémio</span>
-            </div>
-
-            <div class="screen">
-              <div class="label">Último prémio</div>
-              <div class="value" id="lastPrize">Boa sorte</div>
-            </div>
-          </div>
-
-          <div class="reels-shell" id="reelsShell">
-            <div class="payline"></div>
-            <div class="flash" id="flash"></div>
-            <canvas class="fireworks" id="fireworks"></canvas>
-
-            <div class="reels">
-              <div class="reel-window"><div class="reel-track" id="reel0"></div></div>
-              <div class="reel-window"><div class="reel-track" id="reel1"></div></div>
-              <div class="reel-window"><div class="reel-track" id="reel2"></div></div>
-              <div class="reel-window"><div class="reel-track" id="reel3"></div></div>
-              <div class="reel-window"><div class="reel-track" id="reel4"></div></div>
-            </div>
-
-            <div class="overlay" id="overlay">
-              <div class="overlay-card">
-                <div class="overlay-kicker" id="overlayKicker">Cheers O Bar</div>
-                <div class="overlay-main" id="overlayMain">3 SHOTS</div>
-                <div class="overlay-sub" id="overlaySub">Prémio</div>
-                <div class="overlay-hint" id="overlayHint">Pressiona qualquer tecla para fechar</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="controls">
-            <div class="status idle" id="statusBox">
-              <div class="label">Estado</div>
-              <div class="value" id="statusText">Clica para começar</div>
-            </div>
-
-            <button class="spin" id="spinBtn" type="button">SPIN</button>
-
-            <div class="status idle">
-              <div class="label">Dica</div>
-              <div class="value hint">Linha do meio</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lever" aria-hidden="true">
-          <button class="lever-hit" id="leverHit" type="button"></button>
-          <div class="lever-base"></div>
-          <div class="lever-stick"></div>
-          <div class="lever-ball"></div>
-        </div>
-      </div>
-    </section>
-  </div>
-
   <script>
+    const BASE_W = 1280;
+    const BASE_H = 720;
+
+    const stage = document.getElementById('stage');
     const reelEls = [0,1,2,3,4].map(i => document.getElementById('reel' + i));
     const machine = document.getElementById('machine');
     const reelsShell = document.getElementById('reelsShell');
@@ -1051,7 +937,12 @@
     let fireworksStopTimer = null;
     let prizeOverlayTimer = null;
     let prizeOverlayVisible = false;
-    let cellH = 120;
+    let cellH = 92;
+
+    function fitStage(){
+      const scale = Math.min(window.innerWidth / BASE_W, window.innerHeight / BASE_H);
+      stage.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
+    }
 
     function isLowPerfDevice(){
       const mem = Number(navigator.deviceMemory || 0);
@@ -1566,12 +1457,8 @@
 
     document.addEventListener('pointerdown', (e) => {
       const t = e.target;
-      if(t.closest && t.closest('#spinBtn')){
-        return;
-      }
-      if(t.closest && t.closest('#leverHit')){
-        return;
-      }
+      if(t.closest && t.closest('#spinBtn')) return;
+      if(t.closest && t.closest('#leverHit')) return;
       primaryAction();
     });
 
@@ -1604,6 +1491,7 @@
     });
 
     window.addEventListener('resize', () => {
+      fitStage();
       measureCellH();
       centerReelsInstant();
       resizeFireworks();
@@ -1611,6 +1499,7 @@
 
     window.addEventListener('load', () => {
       if(isLowPerfDevice()) document.body.classList.add('perf-low');
+      fitStage();
       buildReelsOnce();
       resizeFireworks();
       setStatus('idle', 'Clica para começar');
