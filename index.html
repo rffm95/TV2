@@ -10,7 +10,10 @@
       --stage-w:1280px;
       --stage-h:720px;
 
-      --gold:#e5b85c;
+      --gold:#f0c96c;
+      --heineken-green:#00b140;
+      --heineken-green-dark:#007a2c;
+      --heineken-red:#e1251b;
       --silver:#dbe3ef;
       --bronze:#b97334;
       --panel:#171c25;
@@ -38,9 +41,10 @@
       overflow:hidden;
       font-family:Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at 30% 0%, rgba(59,231,255,.18) 0%, rgba(140,98,255,.08) 18%, transparent 45%),
-        radial-gradient(circle at 75% 10%, rgba(255,59,212,.12) 0%, transparent 44%),
-        radial-gradient(circle at top, #2a3560 0%, #121826 34%, #07080b 100%);
+        radial-gradient(circle at 18% 0%, rgba(0,177,64,.26) 0%, rgba(0,177,64,.08) 20%, transparent 44%),
+        radial-gradient(circle at 82% 10%, rgba(225,37,27,.14) 0%, transparent 38%),
+        radial-gradient(circle at 50% 100%, rgba(240,201,108,.10) 0%, transparent 36%),
+        radial-gradient(circle at top, #1b3528 0%, #121826 34%, #07080b 100%);
       color:var(--text);
     }
 
@@ -739,6 +743,20 @@
       50%{ opacity:.65; }
     }
 
+
+    .panel::before{content:"HEINEKEN";position:absolute;top:10px;right:12px;font-size:10px;letter-spacing:.18em;color:rgba(255,255,255,.34);font-weight:900;}
+    .brand-chip{margin:0 0 10px;display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg, rgba(0,177,64,.20), rgba(255,255,255,.03));}
+    .brand-star{width:20px;height:20px;flex:0 0 auto;background:var(--heineken-red);clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 92%, 50% 71%, 21% 92%, 32% 57%, 2% 35%, 39% 35%);}
+    .brand-chip span{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:#f6fbf7;}
+    .heineken-badge{display:inline-flex;align-items:center;justify-content:center;gap:6px;margin:7px auto 0;padding:5px 10px;border-radius:999px;background:linear-gradient(180deg, rgba(0,177,64,.24), rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.10);font-size:10px;font-weight:900;letter-spacing:.14em;color:#eef7f1;width:max-content;max-width:100%;}
+    .heineken-badge .star{width:12px;height:12px;background:var(--heineken-red);clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 92%, 50% 71%, 21% 92%, 32% 57%, 2% 35%, 39% 35%);flex:0 0 auto;}
+    .payline-frame{position:absolute;left:10px;right:10px;top:10px;height:calc(var(--cell-h) * 3);z-index:3;pointer-events:none;border-radius:16px;}
+    .row-guide{position:absolute;left:0;right:0;height:var(--cell-h);border-radius:12px;}
+    .row-guide.top{top:0;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.08);}
+    .row-guide.mid{top:var(--cell-h);border-top:3px solid rgba(255,255,255,.98);border-bottom:3px solid rgba(255,255,255,.98);box-shadow:0 0 16px rgba(255,255,255,.12), inset 0 0 0 1px rgba(255,255,255,.08);background:linear-gradient(90deg, rgba(255,255,255,.02), rgba(255,255,255,.05), rgba(255,255,255,.02));}
+    .row-guide.bottom{top:calc(var(--cell-h) * 2);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.12);}
+    .payline-label{position:absolute;right:16px;top:calc(var(--cell-h) + 8px);z-index:4;pointer-events:none;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.36);border:1px solid rgba(255,255,255,.12);font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#fff6d8;}
+
     @media (prefers-reduced-motion: reduce){
       .symbol.win,
       .overlay.show .overlay-main,
@@ -755,23 +773,24 @@
       <div class="boot" id="boot">
         <div class="boot-card">
           <h1 class="boot-title">Cheers O Bar<br><span>Slot dos Shots</span></h1>
-          <div class="boot-sub">Entrada com pack de 6 shots da casa<br>Morango ou maracujá</div>
-          <div class="boot-cta">Clique / toca / enter para começar</div>
+          <div class="boot-sub">Pede 1 pack de 6 shots da casa<br>e roda 1 vez</div>
+          <div class="boot-cta">Carrega no comando para começar</div>
         </div>
       </div>
 
       <div class="app">
         <aside class="panel">
+          <div class="brand-chip"><div class="brand-star"></div><span>Heineken</span></div>
           <h2>Entrada</h2>
-          <p class="sub">Participação</p>
+          <p class="sub">1 jogada por pack</p>
 
           <div class="card entry">
-            <div class="big">Pede 1 pack de 6 shots da casa</div>
+            <div class="big">1 pack de 6 shots</div>
             <div class="small">Morango ou maracujá</div>
           </div>
 
           <h2 style="margin-top:10px;">Prémios</h2>
-          <p class="sub">Do melhor para o pior</p>
+          <p class="sub">Só a linha do meio paga</p>
 
           <div class="card top">
             <div class="big">10 shots</div>
@@ -780,7 +799,7 @@
 
           <div class="card top">
             <div class="big">10 finos</div>
-            <div class="small">5 copos de cerveja em linha</div>
+            <div class="small">5 finos em linha</div>
           </div>
 
           <div class="card top">
@@ -790,7 +809,7 @@
 
           <div class="card top">
             <div class="big">5 finos</div>
-            <div class="small">4 copos de cerveja em linha</div>
+            <div class="small">4 finos em linha</div>
           </div>
 
           <div class="card mid">
@@ -800,14 +819,14 @@
 
           <div class="card mid" style="margin-bottom:0;">
             <div class="big">3 finos</div>
-            <div class="small">3 copos de cerveja em linha</div>
+            <div class="small">3 finos em linha</div>
           </div>
         </aside>
 
         <section class="center">
           <div class="machine" id="machine">
             <div class="machine-inner">
-              <div class="marquee" id="marquee">Cheers O Bar · Puxa a alavanca · Pede o pack de 6 shots</div>
+              <div class="marquee" id="marquee">Cheers O Bar · Só a linha do meio paga · Carrega para jogar</div>
 
               <div class="topbar">
                 <div class="screen">
@@ -818,7 +837,8 @@
                 <div class="title">
                   <span class="mini">Cheers O Bar</span>
                   <span class="main">Slot dos Shots</span>
-                  <span class="subt">A linha do meio paga prémio</span>
+                  <span class="subt">3 linhas visíveis · só a do meio paga</span>
+                  <span class="heineken-badge"><span class="star"></span>Heineken</span>
                 </div>
 
                 <div class="screen">
@@ -828,7 +848,12 @@
               </div>
 
               <div class="reels-shell" id="reelsShell">
-                <div class="payline"></div>
+                <div class="payline-frame">
+                  <div class="row-guide top"></div>
+                  <div class="row-guide mid"></div>
+                  <div class="row-guide bottom"></div>
+                </div>
+                <div class="payline-label">Linha do meio</div>
                 <div class="flash" id="flash"></div>
                 <canvas class="fireworks" id="fireworks"></canvas>
 
@@ -853,14 +878,14 @@
               <div class="controls">
                 <div class="status idle" id="statusBox">
                   <div class="label">Estado</div>
-                  <div class="value" id="statusText">Clica para começar</div>
+                  <div class="value" id="statusText">Carrega para jogar</div>
                 </div>
 
                 <button class="spin" id="spinBtn" type="button">SPIN</button>
 
                 <div class="status idle">
                   <div class="label">Dica</div>
-                  <div class="value hint">Linha do meio</div>
+                  <div class="value hint">Só o meio paga</div>
                 </div>
               </div>
             </div>
@@ -969,12 +994,12 @@
 
     const outcomes = [
       { key:'lose', weight:64, symbol:null, len:0, status:'lose', mode:'Cheers Vegas', prize:'Sem prémio', text:'Tenta outra vez', overlay:'SEM PRÉMIO', tier:'none' },
-      { key:'s3',  weight:13, symbol:'shot', len:3, status:'shot', mode:'Shot Bonus',   prize:'3 shots',  text:'Ganhaste 3 shots',  overlay:'3 SHOTS',  tier:'big' },
-      { key:'b3',  weight:13, symbol:'beer', len:3, status:'beer', mode:'Beer Bonus',   prize:'3 finos',  text:'Ganhaste 3 finos',  overlay:'3 FINOS',  tier:'big' },
-      { key:'b5',  weight:4,  symbol:'beer', len:4, status:'beer', mode:'Beer Rush',    prize:'5 finos',  text:'Ganhaste 5 finos',  overlay:'5 FINOS',  tier:'big' },
-      { key:'s5',  weight:4,  symbol:'shot', len:4, status:'shot', mode:'Shot Rush',    prize:'5 shots',  text:'Ganhaste 5 shots',  overlay:'5 SHOTS',  tier:'big' },
-      { key:'s10', weight:1,  symbol:'shot', len:5, status:'shot', mode:'Shot Jackpot', prize:'10 shots', text:'JACKPOT 10 SHOTS', overlay:'10 SHOTS', tier:'mega' },
-      { key:'b10', weight:1,  symbol:'beer', len:5, status:'beer', mode:'Beer Jackpot', prize:'10 finos', text:'JACKPOT 10 FINOS', overlay:'10 FINOS', tier:'mega' }
+      { key:'s3',  weight:13, symbol:'shot', len:3, status:'shot', mode:'Shot Bonus',   prize:'3 shots',  text:'3 shots',  overlay:'3 SHOTS',  tier:'big' },
+      { key:'b3',  weight:13, symbol:'beer', len:3, status:'beer', mode:'Beer Bonus',   prize:'3 finos',  text:'3 finos',  overlay:'3 FINOS',  tier:'big' },
+      { key:'b5',  weight:4,  symbol:'beer', len:4, status:'beer', mode:'Beer Rush',    prize:'5 finos',  text:'5 finos',  overlay:'5 FINOS',  tier:'big' },
+      { key:'s5',  weight:4,  symbol:'shot', len:4, status:'shot', mode:'Shot Rush',    prize:'5 shots',  text:'5 shots',  overlay:'5 SHOTS',  tier:'big' },
+      { key:'s10', weight:1,  symbol:'shot', len:5, status:'shot', mode:'Shot Jackpot', prize:'10 shots', text:'10 shots', overlay:'10 SHOTS', tier:'mega' },
+      { key:'b10', weight:1,  symbol:'beer', len:5, status:'beer', mode:'Beer Jackpot', prize:'10 finos', text:'10 finos', overlay:'10 FINOS', tier:'mega' }
     ];
 
     const reels = [];
@@ -1042,9 +1067,9 @@
 
     function buildResult(){
       const picked = weightedOutcome();
-      if(picked.key === 'lose') return { ...picked, line:makeLoseLine(), start:-1 };
-      const built = makeWinLine(picked.symbol, picked.len);
-      return { ...picked, line:built.line, start:built.start };
+      const built = picked.key === 'lose' ? { line:makeLoseLine(), start:-1 } : makeWinLine(picked.symbol, picked.len);
+      const derived = derivePrizeFromLine(built.line);
+      return { ...picked, line:built.line, start:derived.start, len:derived.len, prize:derived.prize, text:derived.text, overlay:derived.overlay, status:derived.status, tier:derived.tier, mode:derived.mode };
     }
 
     function createCell(){
@@ -1091,6 +1116,7 @@
       if(!first) return;
       const h = first.getBoundingClientRect().height;
       cellH = h || cellH;
+      document.documentElement.style.setProperty('--cell-h', cellH + 'px');
     }
 
     function clearMarks(){
@@ -1120,9 +1146,7 @@
     }
 
     function updateMarquee(result){
-      marquee.textContent = (result.start < 0)
-        ? 'Cheers O Bar · Sem prémio · Tenta outra vez'
-        : ('Cheers O Bar · Prémio: ' + result.prize.toUpperCase());
+      marquee.textContent = (result.start < 0) ? 'Cheers O Bar · Sem prémio · Só a linha do meio paga' : ('Cheers O Bar · Saiu ' + result.prize.toUpperCase() + ' · Linha do meio');
     }
 
     function stopPrizeOverlayTimer(){
@@ -1187,12 +1211,12 @@
       clearEffects();
       modeLabel.textContent = 'Attract Mode';
       lastPrize.textContent = '---';
-      setStatus('idle', 'TOCA PARA JOGAR');
+      setStatus('idle', 'CARREGA PARA JOGAR');
       statusText.classList.add('pulse');
-      marquee.textContent = 'Cheers O Bar · Puxa a alavanca · Pede o pack de 6 shots';
+      marquee.textContent = 'Cheers O Bar · Só a linha do meio paga · Carrega para jogar';
       demoSpin();
       attractTimer = setInterval(demoSpin, 6200);
-      const msgs = ['TOCA PARA JOGAR','PUXA A ALAVANCA','CHEERS O BAR','PACK DE 6 SHOTS'];
+      const msgs = ['CARREGA PARA JOGAR','SLOT DOS SHOTS','SÓ O MEIO PAGA','1 PACK = 1 JOGADA'];
       attractTextTimer = setInterval(() => {
         if(!attractMode) return;
         setStatus('idle', rand(msgs));
@@ -1209,7 +1233,7 @@
       statusText.classList.remove('pulse');
       modeLabel.textContent = 'Cheers Vegas';
       lastPrize.textContent = 'Boa sorte';
-      marquee.textContent = 'Cheers O Bar · Pack de 6 shots · Boa sorte';
+      marquee.textContent = 'Cheers O Bar · Só a linha do meio paga · Boa sorte';
       setStatus('idle', 'Carrega para jogar');
       scheduleIdle();
     }
@@ -1218,10 +1242,23 @@
       for(let i = 0; i < 5; i++){
         const reel = reels[i];
         for(let k = 0; k < REEL_ITEMS; k++){
-          const id = (k === STOP_INDEX) ? line[i] : rand(allIds);
+          let id = rand(allIds);
+          if(k === STOP_INDEX) id = line[i];
+          else if(k === STOP_INDEX - 1 || k === STOP_INDEX + 1) id = rand(allIds);
           setCellSymbol(reel.cells[k], id);
         }
       }
+    }
+
+    function derivePrizeFromLine(line){
+      const run = longestRun(line);
+      if(run.len >= 5 && run.symbol === 'shot') return { prize:'10 shots', overlay:'10 SHOTS', text:'10 shots', status:'shot', tier:'mega', mode:'Shot Jackpot', len:5, start:run.start };
+      if(run.len >= 5 && run.symbol === 'beer') return { prize:'10 finos', overlay:'10 FINOS', text:'10 finos', status:'beer', tier:'mega', mode:'Beer Jackpot', len:5, start:run.start };
+      if(run.len >= 4 && run.symbol === 'shot') return { prize:'5 shots', overlay:'5 SHOTS', text:'5 shots', status:'shot', tier:'big', mode:'Shot Rush', len:4, start:run.start };
+      if(run.len >= 4 && run.symbol === 'beer') return { prize:'5 finos', overlay:'5 FINOS', text:'5 finos', status:'beer', tier:'big', mode:'Beer Rush', len:4, start:run.start };
+      if(run.len >= 3 && run.symbol === 'shot') return { prize:'3 shots', overlay:'3 SHOTS', text:'3 shots', status:'shot', tier:'big', mode:'Shot Bonus', len:3, start:run.start };
+      if(run.len >= 3 && run.symbol === 'beer') return { prize:'3 finos', overlay:'3 FINOS', text:'3 finos', status:'beer', tier:'big', mode:'Beer Bonus', len:3, start:run.start };
+      return { prize:'Sem prémio', overlay:'SEM PRÉMIO', text:'Sem prémio', status:'lose', tier:'none', mode:'Cheers Vegas', len:0, start:-1 };
     }
 
     function centerReelsInstant(){
@@ -1285,7 +1322,7 @@
       spinBtn.classList.add('disabled');
       machine.classList.add('pull');
       modeLabel.textContent = 'Spinning';
-      setStatus('idle', 'A rodar...');
+      setStatus('idle', 'A rodar');
 
       resultCurrent = buildResult();
       setTargetLine(resultCurrent.line);
@@ -1297,6 +1334,15 @@
 
       setTimeout(() => {
         const r = resultCurrent;
+        const verify = derivePrizeFromLine(r.line);
+        r.prize = verify.prize;
+        r.overlay = verify.overlay;
+        r.text = verify.text;
+        r.status = verify.status;
+        r.tier = verify.tier;
+        r.mode = verify.mode;
+        r.len = verify.len;
+        r.start = verify.start;
         lastPrize.textContent = r.prize;
         modeLabel.textContent = r.mode;
         updateMarquee(r);
@@ -1425,7 +1471,7 @@
       modeLabel.textContent = 'Cheers Vegas';
       lastPrize.textContent = 'Boa sorte';
       setStatus('idle', 'Carrega para jogar');
-      marquee.textContent = 'Cheers O Bar · Pack de 6 shots · Boa sorte';
+      marquee.textContent = 'Cheers O Bar · Só a linha do meio paga · Boa sorte';
       scheduleIdle();
     }
 
@@ -1502,7 +1548,7 @@
       fitStage();
       buildReelsOnce();
       resizeFireworks();
-      setStatus('idle', 'Clica para começar');
+      setStatus('idle', 'Carrega para jogar');
       modeLabel.textContent = 'Standby';
       lastPrize.textContent = 'Boa sorte';
     });
