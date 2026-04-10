@@ -219,18 +219,23 @@
     width:64px;
     height:92px;
     border-radius:10px;
-    background:#f0c232;
+    background:#111111;
+    position:relative;
   }
 
   .player .body::after{
-    content:"5";
+    content:"CHEERS";
     position:absolute;
-    left:20px;
-    top:10px;
-    font-size:42px;
+    left:50%;
+    top:18px;
+    transform:translateX(-50%);
+    color:#ffffff;
+    font-size:13px;
     line-height:1;
     font-weight:900;
-    color:#17375a;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    white-space:nowrap;
   }
 
   .player .shorts{
@@ -275,6 +280,7 @@
     height:138px;
     transform:translateX(-50%);
     z-index:4;
+    transition:transform 120ms linear;
   }
 
   .keeper .head{
@@ -336,6 +342,7 @@
     background:#ffffff;
     border:3px solid #d3dce5;
     z-index:5;
+    will-change:transform;
   }
 
   .meterPanel{
@@ -501,7 +508,7 @@
     border:2px solid var(--line);
     border-radius:12px;
     padding:8px 10px;
-    min-height:42px;
+    min-height:52px;
   }
 
   .prize.big{
@@ -510,13 +517,16 @@
 
   .prize strong{
     display:block;
-    font-size:14px;
+    font-size:12px;
+    line-height:1.1;
     text-transform:uppercase;
+    white-space:normal;
+    overflow-wrap:break-word;
   }
 
   .prize span{
     display:block;
-    margin-top:3px;
+    margin-top:4px;
     font-size:10px;
     text-transform:uppercase;
     letter-spacing:.08em;
@@ -539,7 +549,7 @@
   }
 
   .card{
-    width:700px;
+    width:760px;
     padding:24px;
     background:#10202b;
     border:3px solid #2f4a5c;
@@ -566,8 +576,8 @@
 
   .cardSub{
     margin-top:10px;
-    font-size:28px;
-    line-height:1;
+    font-size:24px;
+    line-height:1.1;
     font-weight:900;
     text-transform:uppercase;
     color:var(--gold);
@@ -660,10 +670,10 @@
       <div class="panel">
         <div class="t">Prémios</div>
         <div class="prizes">
-          <div class="prize big"><strong>6 shots + 6 finos</strong><span>Grande prémio</span></div>
-          <div class="prize"><strong>12 shots</strong><span>Top prémio</span></div>
-          <div class="prize"><strong>6 shots</strong><span>Prémio</span></div>
-          <div class="prize"><strong>3 shots</strong><span>Prémio</span></div>
+          <div class="prize big"><strong>10 Shots de Smirnoff Spicy Tamarino</strong><span>Grande prémio</span></div>
+          <div class="prize"><strong>12 Shots de Smirnoff Spicy Tamarino</strong><span>Top prémio</span></div>
+          <div class="prize"><strong>6 Shots de Smirnoff Spicy Tamarino</strong><span>Prémio</span></div>
+          <div class="prize"><strong>3 Shots de Smirnoff Spicy Tamarino</strong><span>Prémio</span></div>
         </div>
       </div>
     </div>
@@ -696,10 +706,10 @@
   var meterDir = 1;
   var busy = false;
   var meterTimer = null;
+  var keyLock = false;
 
   var dirs = ['left','center','right'];
 
-  /* FIXED: lowered Y targets so the ball stays visually inside the goal */
   var shotTargets = {
     left:{x:-125,y:-190,scale:0.78},
     center:{x:0,y:-198,scale:0.74},
@@ -717,10 +727,10 @@
 
   function weightedPrize(){
     var r = Math.random();
-    if(r < 0.60) return '3 Shots';
-    if(r < 0.90) return '6 Shots';
-    if(r < 0.95) return '12 Shots';
-    return '6 Shots + 6 Finos';
+    if(r < 0.60) return '3 Shots de Smirnoff Spicy Tamarino';
+    if(r < 0.90) return '6 Shots de Smirnoff Spicy Tamarino';
+    if(r < 0.95) return '12 Shots de Smirnoff Spicy Tamarino';
+    return '10 Shots de Smirnoff Spicy Tamarino';
   }
 
   function goalChance(value, sameSide){
@@ -767,7 +777,7 @@
     if(meterTimer) clearInterval(meterTimer);
 
     meterTimer = setInterval(function(){
-      meterValue += meterDir * 0.02;
+      meterValue += meterDir * 0.04;
 
       if(meterValue >= 1){
         meterValue = 1;
@@ -862,27 +872,73 @@
     }, 2500);
   }
 
-  kickBtn.addEventListener('click', kick);
+  function handlePrimaryAction(e){
+    if(e){
+      if(typeof e.preventDefault === 'function') e.preventDefault();
+      if(typeof e.stopPropagation === 'function') e.stopPropagation();
+    }
+    kick();
+  }
+
+  kickBtn.addEventListener('click', function(e){
+    handlePrimaryAction(e);
+  });
 
   kickBtn.addEventListener('focus', function(){
     kickBtn.className = 'kickBtn focused';
   });
 
   document.addEventListener('keydown', function(e){
-    var key = e.key || e.code;
+    var key = e.key || e.code || '';
+    var keyCode = typeof e.keyCode === 'number' ? e.keyCode : 0;
+    var isEnter =
+      key === 'Enter' ||
+      key === 'OK' ||
+      key === 'Select' ||
+      key === 'NumpadEnter' ||
+      keyCode === 13;
 
-    if(key === 'Enter' || key === ' ' || key === 'Spacebar' || key === 'Space'){
-      e.preventDefault();
-      kick();
+    var isSpace =
+      key === ' ' ||
+      key === 'Spacebar' ||
+      key === 'Space' ||
+      keyCode === 32;
+
+    if(isEnter || isSpace){
+      if(e.repeat || keyLock) {
+        e.preventDefault();
+        return;
+      }
+      keyLock = true;
+      handlePrimaryAction(e);
       return;
     }
 
-    if(key === 'ArrowLeft' || key === 'ArrowRight' || key === 'Tab'){
+    if(key === 'ArrowLeft' || key === 'ArrowRight' || key === 'Tab' || keyCode === 37 || keyCode === 39){
       if(typeof kickBtn.focus === 'function') kickBtn.focus();
       kickBtn.className = 'kickBtn focused';
       e.preventDefault();
     }
-  });
+  }, true);
+
+  document.addEventListener('keyup', function(e){
+    var key = e.key || e.code || '';
+    var keyCode = typeof e.keyCode === 'number' ? e.keyCode : 0;
+
+    if(
+      key === 'Enter' ||
+      key === 'OK' ||
+      key === 'Select' ||
+      key === 'NumpadEnter' ||
+      key === ' ' ||
+      key === 'Spacebar' ||
+      key === 'Space' ||
+      keyCode === 13 ||
+      keyCode === 32
+    ){
+      keyLock = false;
+    }
+  }, true);
 
   window.addEventListener('resize', fitStage);
 
@@ -890,6 +946,12 @@
   setReady();
   updateMarker();
   startMeter();
+
+  if(typeof kickBtn.focus === 'function'){
+    setTimeout(function(){
+      kickBtn.focus();
+    }, 50);
+  }
 })();
 </script>
 </body>
