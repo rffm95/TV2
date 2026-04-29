@@ -10,16 +10,14 @@
   <style>
     :root {
       --bg: #04070d;
-      --bg-2: #0b1430;
-      --panel: rgba(10, 18, 38, 0.86);
       --text: #f5f7ff;
       --muted: #bcc5df;
       --gold: #FFD300;
       --red: #E21B4D;
       --blue: #223971;
-      --blue-2: #12264f;
-      --silver: #d6dcea;
-      --ring: rgba(255,255,255,.1);
+      --blue2: #16305E;
+      --panel: rgba(10,18,38,.80);
+      --ring: rgba(255,255,255,.09);
       --shadow: 0 24px 60px rgba(0,0,0,.48);
     }
 
@@ -31,29 +29,31 @@
 
     html, body {
       margin: 0;
+      width: 100%;
       height: 100%;
       overflow: hidden;
+      background: #000;
     }
 
     body {
       font-family: 'Rajdhani', sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 50% 10%, rgba(255,211,0,.16), transparent 22%),
-        radial-gradient(circle at 12% 18%, rgba(226,27,77,.18), transparent 24%),
-        radial-gradient(circle at 88% 18%, rgba(34,57,113,.35), transparent 28%),
-        linear-gradient(180deg, #02040a 0%, #07111f 48%, #04070d 100%);
+        radial-gradient(circle at 50% 10%, rgba(255,211,0,.16), transparent 20%),
+        radial-gradient(circle at 12% 18%, rgba(226,27,77,.18), transparent 22%),
+        radial-gradient(circle at 88% 18%, rgba(34,57,113,.35), transparent 26%),
+        linear-gradient(180deg, #02040a 0%, #07111f 50%, #04070d 100%);
     }
 
-    .bg-noise,
-    .flash,
-    .confetti {
+    .noise,
+    .confetti,
+    .flash {
       position: fixed;
       inset: 0;
       pointer-events: none;
     }
 
-    .bg-noise {
+    .noise {
       opacity: .05;
       background-image:
         linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
@@ -64,7 +64,7 @@
 
     .flash {
       opacity: 0;
-      background: radial-gradient(circle, rgba(255,255,255,.22), transparent 55%);
+      background: radial-gradient(circle, rgba(255,255,255,.2), transparent 55%);
       transition: opacity .25s ease;
     }
 
@@ -73,18 +73,18 @@
     }
 
     .app {
-      min-height: 100vh;
-      padding: 18px;
+      width: 100vw;
+      height: 100vh;
+      padding: 14px;
       display: grid;
       grid-template-rows: auto 1fr auto;
       gap: 14px;
     }
 
     .topbar,
-    .result,
-    .prizes,
+    .left-panel,
     .footerbar {
-      background: linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.04));
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
       border: 1px solid var(--ring);
       box-shadow: var(--shadow);
       backdrop-filter: blur(16px);
@@ -92,11 +92,11 @@
 
     .topbar {
       border-radius: 24px;
-      padding: 14px 18px;
+      padding: 16px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 20px;
     }
 
     .brand {
@@ -106,13 +106,13 @@
     }
 
     .mark {
-      width: 56px;
-      height: 56px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
       position: relative;
       background:
         radial-gradient(circle at 50% 50%, rgba(255,211,0,.96) 0 30%, transparent 31%),
-        linear-gradient(145deg, rgba(255,255,255,.2), rgba(255,255,255,.05));
+        linear-gradient(145deg, rgba(255,255,255,.20), rgba(255,255,255,.05));
       border: 1px solid rgba(255,255,255,.14);
       overflow: hidden;
     }
@@ -121,7 +121,7 @@
     .mark::after {
       content: '';
       position: absolute;
-      top: 22px;
+      top: 23px;
       width: 18px;
       height: 12px;
       background: var(--red);
@@ -140,6 +140,7 @@
 
     .title small,
     .footerbar {
+      display: block;
       text-transform: uppercase;
       letter-spacing: .18em;
       color: var(--muted);
@@ -147,7 +148,6 @@
     }
 
     .title strong,
-    .result-main,
     .cta {
       font-family: 'Oxanium', sans-serif;
       text-transform: uppercase;
@@ -155,49 +155,52 @@
 
     .title strong {
       display: block;
-      font-size: clamp(22px, 2vw, 30px);
+      font-size: clamp(24px, 1.7vw, 34px);
       letter-spacing: .04em;
+      line-height: 1;
     }
 
     .cta {
-      font-size: clamp(18px, 1.8vw, 28px);
-      text-align: right;
+      font-size: clamp(24px, 1.8vw, 34px);
       line-height: .95;
+      text-align: right;
     }
 
     .main {
       min-height: 0;
       display: grid;
-      grid-template-columns: 280px minmax(420px, 1fr) 280px;
+      grid-template-columns: 300px 1fr;
       gap: 18px;
-      align-items: center;
+      align-items: stretch;
     }
 
-    .prizes,
-    .result {
-      border-radius: 28px;
-      padding: 18px;
+    .left-panel {
+      border-radius: 30px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .panel-title {
-      margin: 0 0 14px;
-      font-size: 15px;
-      letter-spacing: .18em;
+      margin: 0 0 16px;
       text-transform: uppercase;
+      letter-spacing: .18em;
       color: var(--muted);
+      font-size: 15px;
     }
 
     .prize-list {
       display: grid;
-      gap: 10px;
+      gap: 12px;
     }
 
     .prize-item {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 14px 14px;
-      border-radius: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
       background: rgba(255,255,255,.05);
       border: 1px solid rgba(255,255,255,.06);
       font-size: 24px;
@@ -208,17 +211,17 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      box-shadow: 0 0 16px currentColor;
+      box-shadow: 0 0 14px currentColor;
       flex: 0 0 auto;
     }
 
     .arena {
       min-height: 0;
-      display: grid;
-      place-items: center;
       border-radius: 40px;
       position: relative;
       overflow: hidden;
+      display: grid;
+      place-items: center;
       background:
         radial-gradient(circle at 50% 50%, rgba(255,255,255,.04), transparent 48%),
         linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
@@ -227,7 +230,7 @@
 
     .wheel-stage {
       position: relative;
-      width: min(72vh, 72vw, 760px);
+      width: min(80vh, 78vw, 1500px);
       aspect-ratio: 1;
       display: grid;
       place-items: center;
@@ -244,10 +247,10 @@
 
     .pointer-box {
       position: absolute;
-      top: -12px;
+      top: -16px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 30;
+      z-index: 40;
       display: grid;
       place-items: center;
     }
@@ -255,23 +258,23 @@
     .pointer {
       width: 0;
       height: 0;
-      border-left: 34px solid transparent;
-      border-right: 34px solid transparent;
-      border-top: 88px solid var(--gold);
-      filter: drop-shadow(0 7px 14px rgba(0,0,0,.55));
+      border-left: 42px solid transparent;
+      border-right: 42px solid transparent;
+      border-top: 110px solid var(--gold);
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,.55));
       position: relative;
     }
 
     .pointer::after {
       content: '';
       position: absolute;
-      left: -14px;
-      top: -88px;
-      width: 28px;
-      height: 28px;
+      left: -16px;
+      top: -110px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: #fff;
-      box-shadow: 0 0 0 4px rgba(255,255,255,.14);
+      box-shadow: 0 0 0 5px rgba(255,255,255,.14);
     }
 
     .wheel-shell {
@@ -279,7 +282,7 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      padding: 18px;
+      padding: 20px;
       background:
         radial-gradient(circle at 28% 24%, rgba(255,255,255,.24), transparent 18%),
         conic-gradient(from 0deg, #edf2ff, #b7c2db 12%, #ffe89a 22%, #d8a800 35%, #fff0ba 49%, #b7c2db 62%, #eef3ff 76%, #c98f00 88%, #eef3ff 100%);
@@ -321,11 +324,11 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 30%;
+      width: 26%;
       transform-origin: 0 0;
       color: #fff;
       font-family: 'Oxanium', sans-serif;
-      font-size: clamp(10px, 1.25vh, 15px);
+      font-size: clamp(10px, 1.05vh, 18px);
       font-weight: 800;
       line-height: 1.02;
       text-transform: uppercase;
@@ -336,13 +339,13 @@
 
     .hub {
       position: absolute;
-      width: 19%;
+      width: 18%;
       aspect-ratio: 1;
       border-radius: 50%;
       background:
         radial-gradient(circle at 35% 30%, rgba(255,255,255,.72), transparent 22%),
         linear-gradient(180deg, #fff2bb 0%, #e2b300 42%, #8a6100 100%);
-      border: 8px solid rgba(255,255,255,.14);
+      border: 9px solid rgba(255,255,255,.14);
       box-shadow:
         inset 0 10px 16px rgba(255,255,255,.32),
         inset 0 -12px 22px rgba(0,0,0,.34),
@@ -355,7 +358,7 @@
     .hub::after {
       content: 'CHEERS';
       font-family: 'Oxanium', sans-serif;
-      font-size: clamp(14px, 1.3vw, 20px);
+      font-size: clamp(16px, 1.1vw, 24px);
       color: #2b1900;
       font-weight: 800;
       letter-spacing: .15em;
@@ -382,26 +385,9 @@
       animation: blink 1.4s linear infinite;
     }
 
-    .result {
-      text-align: center;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04)),
-        linear-gradient(135deg, rgba(34,57,113,.24), rgba(226,27,77,.16));
-    }
-
-    .result-main {
-      min-height: 2.2em;
-      display: grid;
-      place-items: center;
-      font-size: clamp(28px, 3vw, 40px);
-      line-height: .94;
-      letter-spacing: .03em;
-      margin: 8px 0 0;
-    }
-
     .footerbar {
       border-radius: 20px;
-      padding: 12px 16px;
+      padding: 14px 16px;
       text-align: center;
     }
 
@@ -413,11 +399,6 @@
 
     .spin-pop {
       animation: pop .8s ease-out;
-    }
-
-    .jackpot {
-      color: var(--gold);
-      text-shadow: 0 0 22px rgba(255,211,0,.44);
     }
 
     @keyframes blink {
@@ -432,7 +413,7 @@
 
     @keyframes pop {
       0% { transform: scale(1); }
-      30% { transform: scale(1.03); }
+      30% { transform: scale(1.02); }
       100% { transform: scale(1); }
     }
 
@@ -441,7 +422,17 @@
       100% { opacity: 0; transform: translate3d(var(--drift), 110vh, 0) rotate(var(--rot)); }
     }
 
-    @media (max-width: 1180px) {
+    @media (max-width: 1400px) {
+      .main {
+        grid-template-columns: 280px 1fr;
+      }
+
+      .wheel-stage {
+        width: min(78vh, 74vw, 1200px);
+      }
+    }
+
+    @media (max-width: 1000px) {
       .topbar {
         flex-direction: column;
         text-align: center;
@@ -459,16 +450,8 @@
         grid-template-columns: 1fr;
       }
 
-      .prizes {
-        order: 2;
-      }
-
-      .result {
-        order: 3;
-      }
-
       .wheel-stage {
-        width: min(74vw, 72vh, 700px);
+        width: min(72vw, 70vh, 900px);
       }
     }
 
@@ -484,7 +467,7 @@
       }
 
       .wheel-stage {
-        width: min(92vw, 58vh);
+        width: min(94vw, 58vh);
       }
 
       .prize-item {
@@ -494,7 +477,7 @@
   </style>
 </head>
 <body>
-  <div class="bg-noise"></div>
+  <div class="noise"></div>
   <div class="flash" id="flash"></div>
   <div class="confetti" id="confetti"></div>
 
@@ -511,7 +494,7 @@
     </header>
 
     <main class="main">
-      <aside class="prizes">
+      <aside class="left-panel">
         <h2 class="panel-title">Prémios</h2>
         <div class="prize-list">
           <div class="prize-item"><span class="dot" style="color:#FFD300;background:#FFD300"></span><span>5 Jägerbombs</span></div>
@@ -537,20 +520,14 @@
           </div>
         </div>
       </section>
-
-      <aside class="result">
-        <h2 class="panel-title">Resultado</h2>
-        <div class="result-main" id="resultMain">Carrega para girar</div>
-      </aside>
     </main>
 
-    <div class="footerbar">Clique, toque ou tecla para girar</div>
+    <div class="footerbar">O prémio é o que estiver na seta quando a roleta parar</div>
   </div>
 
   <script>
     const wheel = document.getElementById('wheel');
     const lights = document.getElementById('lights');
-    const resultMain = document.getElementById('resultMain');
     const flash = document.getElementById('flash');
     const confetti = document.getElementById('confetti');
     const wheelStage = document.getElementById('wheelStage');
@@ -563,8 +540,6 @@
       'TENTA OUTRA VEZ': { color: '#16305E', text: 'TENTA<br>OUTRA<br>VEZ' }
     };
 
-    // 20 fatias iguais = probabilidades exatas
-    // 1 = 5%, 2 = 10%, 3 = 15%, 5 = 25%, 9 = 45%
     const segments = [
       '5 JÄGERBOMBS',
       'TENTA OUTRA VEZ',
@@ -614,7 +589,7 @@
 
         const span = document.createElement('span');
         span.innerHTML = prizeStyles[label].text;
-        span.style.transform = `translate(12%, -50%) rotate(${segmentAngle / 2}deg)`;
+        span.style.transform = `translate(16%, -50%) rotate(${segmentAngle / 2}deg)`;
         wrap.appendChild(span);
         wheel.appendChild(wrap);
       });
@@ -622,7 +597,7 @@
 
     function buildLights() {
       lights.innerHTML = '';
-      const count = 40;
+      const count = 42;
 
       for (let i = 0; i < count; i++) {
         const bulb = document.createElement('div');
@@ -647,20 +622,9 @@
       return totalRotation + extraTurns + delta;
     }
 
-    function landedIndexFromRotation(rotation) {
-      const rotationNorm = norm(rotation);
-      const pointerWorldAngle = norm(360 - rotationNorm);
-      let rawIndex = Math.floor(pointerWorldAngle / segmentAngle);
-
-      if (rawIndex < 0) rawIndex = 0;
-      if (rawIndex >= segments.length) rawIndex = segments.length - 1;
-
-      return rawIndex;
-    }
-
     function burst(jackpot = false) {
       confetti.innerHTML = '';
-      const total = jackpot ? 130 : 50;
+      const total = jackpot ? 130 : 40;
       const palette = jackpot
         ? ['#FFD300', '#fff0bd', '#E21B4D', '#ffffff']
         : ['#E21B4D', '#FFD300', '#dfe9ff', '#8b96b6'];
@@ -684,26 +648,7 @@
 
       setTimeout(() => {
         confetti.innerHTML = '';
-      }, jackpot ? 3200 : 2400);
-    }
-
-    function showResult(label) {
-      resultMain.classList.remove('jackpot');
-
-      if (label === '5 JÄGERBOMBS') {
-        resultMain.textContent = 'JACKPOT · 5 JÄGERBOMBS';
-        resultMain.classList.add('jackpot');
-        flash.classList.add('active');
-        setTimeout(() => flash.classList.remove('active'), 220);
-        burst(true);
-        return;
-      }
-
-      resultMain.textContent = label;
-
-      if (label === '5 FINOS' || label === '2 FINOS') {
-        burst(false);
-      }
+      }, jackpot ? 3200 : 2200);
     }
 
     function spin() {
@@ -714,20 +659,29 @@
       setTimeout(() => wheelStage.classList.remove('spin-pop'), 800);
 
       const chosenIndex = randomIndex();
+      const chosenPrize = segments[chosenIndex];
       totalRotation = targetRotationForIndex(chosenIndex);
 
-      resultMain.classList.remove('jackpot');
-      resultMain.textContent = 'A GIRAR...';
+      if (chosenPrize === '5 JÄGERBOMBS') {
+        flash.classList.add('active');
+        setTimeout(() => flash.classList.remove('active'), 220);
+      }
+
       wheel.style.transform = `rotate(${totalRotation}deg)`;
     }
 
     wheel.addEventListener('transitionend', () => {
       if (!spinning) return;
 
-      const landedIndex = landedIndexFromRotation(totalRotation);
-      const landedPrize = segments[landedIndex];
+      const finalIndex = Math.floor(Math.random() * 999999); // dummy guard removed visually
+      const lastVisiblePrize = segments[((Math.round((360 - norm(totalRotation) - segmentAngle / 2) / segmentAngle) % segments.length) + segments.length) % segments.length];
 
-      showResult(landedPrize);
+      if (lastVisiblePrize === '5 JÄGERBOMBS') {
+        burst(true);
+      } else if (lastVisiblePrize === '5 FINOS' || lastVisiblePrize === '2 FINOS') {
+        burst(false);
+      }
+
       spinning = false;
     });
 
