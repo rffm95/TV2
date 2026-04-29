@@ -3,484 +3,357 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Cheers O Bar - Roleta Red Bull</title>
+  <title>Cheers O Bar - Roleta Red Bull Lite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #04070d;
-      --text: #f5f7ff;
-      --muted: #bcc5df;
-      --gold: #FFD300;
-      --red: #E21B4D;
-      --blue: #223971;
-      --blue2: #16305E;
-      --panel: rgba(10,18,38,.80);
-      --ring: rgba(255,255,255,.09);
-      --shadow: 0 24px 60px rgba(0,0,0,.48);
+    :root{
+      --bg:#050914;
+      --bg2:#0a1631;
+      --gold:#ffd300;
+      --red:#e21b4d;
+      --blue:#223971;
+      --blue2:#17305f;
+      --text:#f4f7ff;
+      --muted:#b9c3de;
+      --panel:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.08);
     }
 
-    * {
-      box-sizing: border-box;
-      user-select: none;
-      cursor: none !important;
+    *{
+      box-sizing:border-box;
+      user-select:none;
+      -webkit-user-select:none;
     }
 
-    html, body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #000;
+    html,body{
+      margin:0;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      background:#000;
     }
 
-    body {
-      font-family: 'Rajdhani', sans-serif;
-      color: var(--text);
+    body{
+      font-family:'Rajdhani',sans-serif;
+      color:var(--text);
       background:
-        radial-gradient(circle at 50% 10%, rgba(255,211,0,.16), transparent 20%),
-        radial-gradient(circle at 12% 18%, rgba(226,27,77,.18), transparent 22%),
-        radial-gradient(circle at 88% 18%, rgba(34,57,113,.35), transparent 26%),
-        linear-gradient(180deg, #02040a 0%, #07111f 50%, #04070d 100%);
+        radial-gradient(circle at 50% 0%, rgba(255,211,0,.10), transparent 20%),
+        radial-gradient(circle at 15% 20%, rgba(226,27,77,.10), transparent 25%),
+        radial-gradient(circle at 85% 20%, rgba(34,57,113,.20), transparent 30%),
+        linear-gradient(180deg, #02050b 0%, #07101d 55%, #03060d 100%);
+      cursor:none;
     }
 
-    .noise,
-    .confetti,
-    .flash {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .noise {
-      opacity: .05;
-      background-image:
-        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
-      background-size: 4px 4px;
-      mix-blend-mode: soft-light;
-    }
-
-    .flash {
-      opacity: 0;
-      background: radial-gradient(circle, rgba(255,255,255,.2), transparent 55%);
-      transition: opacity .25s ease;
-    }
-
-    .flash.active {
-      opacity: 1;
-    }
-
-    .app {
-      width: 100vw;
-      height: 100vh;
-      padding: 14px;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      gap: 14px;
+    .app{
+      width:100vw;
+      height:100vh;
+      padding:14px;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      gap:14px;
     }
 
     .topbar,
     .left-panel,
-    .footerbar {
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-      border: 1px solid var(--ring);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
+    .footerbar{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
     }
 
-    .topbar {
-      border-radius: 24px;
-      padding: 16px 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 18px;
+      gap:18px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
     }
 
-    .mark {
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      position: relative;
+    .mark{
+      width:54px;
+      height:54px;
+      border-radius:50%;
+      position:relative;
       background:
-        radial-gradient(circle at 50% 50%, rgba(255,211,0,.96) 0 30%, transparent 31%),
-        linear-gradient(145deg, rgba(255,255,255,.20), rgba(255,255,255,.05));
-      border: 1px solid rgba(255,255,255,.14);
-      overflow: hidden;
+        radial-gradient(circle at 50% 50%, rgba(255,211,0,.95) 0 30%, transparent 31%),
+        linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.14);
+      flex:0 0 auto;
     }
 
     .mark::before,
-    .mark::after {
-      content: '';
-      position: absolute;
-      top: 23px;
-      width: 18px;
-      height: 12px;
-      background: var(--red);
-      border-radius: 18px 18px 4px 4px;
+    .mark::after{
+      content:"";
+      position:absolute;
+      top:21px;
+      width:17px;
+      height:11px;
+      background:var(--red);
+      border-radius:18px 18px 4px 4px;
     }
 
-    .mark::before {
-      left: 10px;
-      transform: rotate(18deg);
+    .mark::before{
+      left:10px;
+      transform:rotate(18deg);
     }
 
-    .mark::after {
-      right: 10px;
-      transform: rotate(-18deg);
+    .mark::after{
+      right:10px;
+      transform:rotate(-18deg);
     }
 
     .title small,
-    .footerbar {
-      display: block;
-      text-transform: uppercase;
-      letter-spacing: .18em;
-      color: var(--muted);
-      font-size: 12px;
+    .footerbar{
+      display:block;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--muted);
+      font-size:12px;
     }
 
     .title strong,
-    .cta {
-      font-family: 'Oxanium', sans-serif;
-      text-transform: uppercase;
+    .cta{
+      display:block;
+      font-family:'Oxanium',sans-serif;
+      text-transform:uppercase;
+      line-height:1;
     }
 
-    .title strong {
-      display: block;
-      font-size: clamp(24px, 1.7vw, 34px);
-      letter-spacing: .04em;
-      line-height: 1;
+    .title strong{
+      font-size:clamp(24px, 1.8vw, 34px);
+      letter-spacing:.04em;
     }
 
-    .cta {
-      font-size: clamp(24px, 1.8vw, 34px);
-      line-height: .95;
-      text-align: right;
+    .cta{
+      font-size:clamp(22px, 1.8vw, 34px);
+      text-align:right;
+      white-space:nowrap;
     }
 
-    .main {
-      min-height: 0;
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 18px;
-      align-items: stretch;
+    .main{
+      min-height:0;
+      display:grid;
+      grid-template-columns:300px 1fr;
+      gap:18px;
     }
 
-    .left-panel {
-      border-radius: 30px;
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .left-panel{
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
 
-    .panel-title {
-      margin: 0 0 16px;
-      text-transform: uppercase;
-      letter-spacing: .18em;
-      color: var(--muted);
-      font-size: 15px;
+    .panel-title{
+      margin:0 0 14px;
+      font-size:15px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.18em;
     }
 
-    .prize-list {
-      display: grid;
-      gap: 12px;
+    .prize-list{
+      display:grid;
+      gap:10px;
     }
 
-    .prize-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.06);
-      font-size: 24px;
-      font-weight: 700;
+    .prize-item{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:14px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.05);
+      font-size:24px;
+      font-weight:700;
     }
 
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      box-shadow: 0 0 14px currentColor;
-      flex: 0 0 auto;
+    .dot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      flex:0 0 auto;
     }
 
-    .arena {
-      min-height: 0;
-      border-radius: 40px;
-      position: relative;
-      overflow: hidden;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,.04), transparent 48%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border: 1px solid rgba(255,255,255,.08);
+    .arena{
+      min-height:0;
+      border-radius:34px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.02);
+      display:grid;
+      place-items:center;
+      position:relative;
+      overflow:hidden;
     }
 
-    .wheel-stage {
-      position: relative;
-      width: min(80vh, 78vw, 1500px);
-      aspect-ratio: 1;
-      display: grid;
-      place-items: center;
-      filter: drop-shadow(0 28px 60px rgba(0,0,0,.6));
+    .wheel-stage{
+      position:relative;
+      width:min(80vh, 76vw, 1200px);
+      aspect-ratio:1;
+      display:grid;
+      place-items:center;
     }
 
-    .glow {
-      position: absolute;
-      inset: 11%;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,211,0,.14), transparent 62%);
-      animation: pulse 2.4s ease-in-out infinite;
+    .pointer{
+      position:absolute;
+      top:-10px;
+      left:50%;
+      transform:translateX(-50%);
+      width:0;
+      height:0;
+      border-left:34px solid transparent;
+      border-right:34px solid transparent;
+      border-top:86px solid var(--gold);
+      z-index:5;
     }
 
-    .pointer-box {
-      position: absolute;
-      top: -16px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 40;
-      display: grid;
-      place-items: center;
+    .pointer::after{
+      content:"";
+      position:absolute;
+      left:-12px;
+      top:-86px;
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      background:#fff7d2;
     }
 
-    .pointer {
-      width: 0;
-      height: 0;
-      border-left: 42px solid transparent;
-      border-right: 42px solid transparent;
-      border-top: 110px solid var(--gold);
-      filter: drop-shadow(0 8px 16px rgba(0,0,0,.55));
-      position: relative;
+    .wheel-wrap{
+      position:relative;
+      width:100%;
+      height:100%;
+      border-radius:50%;
+      padding:14px;
+      background:linear-gradient(135deg, #f3f5fb, #c8d0df 35%, #f4d66a 55%, #f2f5fb 100%);
     }
 
-    .pointer::after {
-      content: '';
-      position: absolute;
-      left: -16px;
-      top: -110px;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 0 5px rgba(255,255,255,.14);
+    .wheel{
+      position:relative;
+      width:100%;
+      height:100%;
+      border-radius:50%;
+      overflow:hidden;
+      transform:translateZ(0);
+      will-change:transform;
+      backface-visibility:hidden;
+      transition:transform 5.8s cubic-bezier(.12,.82,.18,1);
     }
 
-    .wheel-shell {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      padding: 20px;
-      background:
-        radial-gradient(circle at 28% 24%, rgba(255,255,255,.24), transparent 18%),
-        conic-gradient(from 0deg, #edf2ff, #b7c2db 12%, #ffe89a 22%, #d8a800 35%, #fff0ba 49%, #b7c2db 62%, #eef3ff 76%, #c98f00 88%, #eef3ff 100%);
-      box-shadow:
-        inset 0 2px 0 rgba(255,255,255,.75),
-        inset 0 -10px 24px rgba(0,0,0,.32),
-        0 0 0 6px rgba(255,255,255,.04),
-        0 18px 46px rgba(0,0,0,.45);
+    .label{
+      position:absolute;
+      inset:0;
+      transform-origin:50% 50%;
+      pointer-events:none;
     }
 
-    .wheel {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      overflow: hidden;
-      transition: transform 6.8s cubic-bezier(.11,.88,.18,1);
+    .label span{
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:28%;
+      transform-origin:0 0;
+      color:#fff;
+      font-family:'Oxanium',sans-serif;
+      font-weight:800;
+      font-size:clamp(11px, 1.1vh, 19px);
+      line-height:1.02;
+      text-transform:uppercase;
+      text-align:center;
+      letter-spacing:.03em;
+      text-shadow:0 1px 3px rgba(0,0,0,.45);
     }
 
-    .wheel::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 50% 50%, transparent 0 52%, rgba(0,0,0,.18) 68%, rgba(255,255,255,.08) 78%, transparent 82%),
-        repeating-conic-gradient(from 0deg, rgba(255,255,255,.12) 0deg 1deg, transparent 1deg 18deg);
-      mix-blend-mode: screen;
-      opacity: .55;
+    .hub{
+      position:absolute;
+      width:18%;
+      aspect-ratio:1;
+      border-radius:50%;
+      background:linear-gradient(180deg, #fff2b3 0%, #dfb100 45%, #9b7300 100%);
+      display:grid;
+      place-items:center;
+      z-index:4;
+      border:6px solid rgba(255,255,255,.16);
     }
 
-    .slice-label {
-      position: absolute;
-      inset: 0;
-      transform-origin: 50% 50%;
-      pointer-events: none;
+    .hub::after{
+      content:"CHEERS";
+      font-family:'Oxanium',sans-serif;
+      font-size:clamp(14px, 1vw, 22px);
+      font-weight:800;
+      letter-spacing:.15em;
+      color:#2e1d00;
     }
 
-    .slice-label span {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 26%;
-      transform-origin: 0 0;
-      color: #fff;
-      font-family: 'Oxanium', sans-serif;
-      font-size: clamp(10px, 1.05vh, 18px);
-      font-weight: 800;
-      line-height: 1.02;
-      text-transform: uppercase;
-      text-align: center;
-      text-shadow: 0 2px 8px rgba(0,0,0,.56);
-      letter-spacing: .03em;
+    .footerbar{
+      padding:12px 16px;
+      text-align:center;
     }
 
-    .hub {
-      position: absolute;
-      width: 18%;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 35% 30%, rgba(255,255,255,.72), transparent 22%),
-        linear-gradient(180deg, #fff2bb 0%, #e2b300 42%, #8a6100 100%);
-      border: 9px solid rgba(255,255,255,.14);
-      box-shadow:
-        inset 0 10px 16px rgba(255,255,255,.32),
-        inset 0 -12px 22px rgba(0,0,0,.34),
-        0 8px 20px rgba(0,0,0,.35);
-      display: grid;
-      place-items: center;
-      z-index: 14;
-    }
-
-    .hub::after {
-      content: 'CHEERS';
-      font-family: 'Oxanium', sans-serif;
-      font-size: clamp(16px, 1.1vw, 24px);
-      color: #2b1900;
-      font-weight: 800;
-      letter-spacing: .15em;
-    }
-
-    .lights {
-      position: absolute;
-      inset: 1.3%;
-      border-radius: 50%;
-      z-index: 12;
-    }
-
-    .bulb {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 14px;
-      height: 14px;
-      margin: -7px;
-      border-radius: 50%;
-      background: #fff3be;
-      box-shadow: 0 0 10px rgba(255,244,176,.9), 0 0 22px rgba(255,211,0,.56);
-      opacity: .45;
-      animation: blink 1.4s linear infinite;
-    }
-
-    .footerbar {
-      border-radius: 20px;
-      padding: 14px 16px;
-      text-align: center;
-    }
-
-    .confetti-piece {
-      position: absolute;
-      opacity: 0;
-      will-change: transform, opacity;
-    }
-
-    .spin-pop {
-      animation: pop .8s ease-out;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: .36; transform: scale(.92); }
-      50% { opacity: 1; transform: scale(1.14); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(.98); opacity: .52; }
-      50% { transform: scale(1.03); opacity: .92; }
-    }
-
-    @keyframes pop {
-      0% { transform: scale(1); }
-      30% { transform: scale(1.02); }
-      100% { transform: scale(1); }
-    }
-
-    @keyframes fall {
-      0% { opacity: 1; transform: translate3d(0, -12vh, 0) rotate(0deg); }
-      100% { opacity: 0; transform: translate3d(var(--drift), 110vh, 0) rotate(var(--rot)); }
-    }
-
-    @media (max-width: 1400px) {
-      .main {
-        grid-template-columns: 280px 1fr;
-      }
-
-      .wheel-stage {
-        width: min(78vh, 74vw, 1200px);
+    @media (max-width: 1200px){
+      .main{
+        grid-template-columns:260px 1fr;
       }
     }
 
-    @media (max-width: 1000px) {
-      .topbar {
-        flex-direction: column;
-        text-align: center;
+    @media (max-width: 980px){
+      .topbar{
+        flex-direction:column;
+        text-align:center;
       }
 
-      .brand {
-        justify-content: center;
+      .brand{
+        justify-content:center;
       }
 
-      .cta {
-        text-align: center;
+      .cta{
+        text-align:center;
+        white-space:normal;
       }
 
-      .main {
-        grid-template-columns: 1fr;
+      .main{
+        grid-template-columns:1fr;
       }
 
-      .wheel-stage {
-        width: min(72vw, 70vh, 900px);
+      .wheel-stage{
+        width:min(76vw, 70vh, 900px);
       }
     }
 
-    @media (max-width: 760px) {
-      * { cursor: default !important; }
-
-      body, html {
-        overflow: auto;
+    @media (max-width: 760px){
+      body{
+        cursor:default;
       }
 
-      .app {
-        min-height: auto;
+      html,body{
+        overflow:auto;
       }
 
-      .wheel-stage {
-        width: min(94vw, 58vh);
+      .app{
+        height:auto;
+        min-height:100vh;
       }
 
-      .prize-item {
-        font-size: 20px;
+      .wheel-stage{
+        width:min(94vw, 58vh);
+      }
+
+      .prize-item{
+        font-size:20px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="noise"></div>
-  <div class="flash" id="flash"></div>
-  <div class="confetti" id="confetti"></div>
-
   <div class="app">
     <header class="topbar">
       <div class="brand">
@@ -497,24 +370,19 @@
       <aside class="left-panel">
         <h2 class="panel-title">Prémios</h2>
         <div class="prize-list">
-          <div class="prize-item"><span class="dot" style="color:#FFD300;background:#FFD300"></span><span>5 Jägerbombs</span></div>
-          <div class="prize-item"><span class="dot" style="color:#ff6e9a;background:#E21B4D"></span><span>5 finos</span></div>
-          <div class="prize-item"><span class="dot" style="color:#8cb5ff;background:#8cb5ff"></span><span>2 finos</span></div>
-          <div class="prize-item"><span class="dot" style="color:#dfe9ff;background:#dfe9ff"></span><span>1 fino</span></div>
-          <div class="prize-item"><span class="dot" style="color:#8b96b6;background:#8b96b6"></span><span>Tenta outra vez</span></div>
+          <div class="prize-item"><span class="dot" style="background:#ffd300"></span><span>5 shots jagger</span></div>
+          <div class="prize-item"><span class="dot" style="background:#e21b4d"></span><span>5 finos</span></div>
+          <div class="prize-item"><span class="dot" style="background:#4f7fe0"></span><span>1 shot jagger</span></div>
+          <div class="prize-item"><span class="dot" style="background:#dfe9ff"></span><span>1 fino</span></div>
+          <div class="prize-item"><span class="dot" style="background:#7f8fb8"></span><span>Tenta outra vez</span></div>
         </div>
       </aside>
 
       <section class="arena">
-        <div class="wheel-stage" id="wheelStage">
-          <div class="glow"></div>
+        <div class="wheel-stage">
+          <div class="pointer"></div>
 
-          <div class="pointer-box">
-            <div class="pointer"></div>
-          </div>
-
-          <div class="wheel-shell">
-            <div class="lights" id="lights"></div>
+          <div class="wheel-wrap">
             <div class="wheel" id="wheel"></div>
             <div class="hub"></div>
           </div>
@@ -527,40 +395,15 @@
 
   <script>
     const wheel = document.getElementById('wheel');
-    const lights = document.getElementById('lights');
-    const flash = document.getElementById('flash');
-    const confetti = document.getElementById('confetti');
-    const wheelStage = document.getElementById('wheelStage');
-
-    const prizeStyles = {
-      '5 JÄGERBOMBS': { color: '#D4A800', text: '5<br>JÄGER<br>BOMBS' },
-      '5 FINOS': { color: '#E21B4D', text: '5<br>FINOS' },
-      '2 FINOS': { color: '#355FB8', text: '2<br>FINOS' },
-      '1 FINO': { color: '#4F7FE0', text: '1<br>FINO' },
-      'TENTA OUTRA VEZ': { color: '#16305E', text: 'TENTA<br>OUTRA<br>VEZ' }
-    };
 
     const segments = [
-      '5 JÄGERBOMBS',
-      'TENTA OUTRA VEZ',
-      '1 FINO',
-      '5 FINOS',
-      'TENTA OUTRA VEZ',
-      '2 FINOS',
-      'TENTA OUTRA VEZ',
-      '1 FINO',
-      'TENTA OUTRA VEZ',
-      '2 FINOS',
-      '1 FINO',
-      'TENTA OUTRA VEZ',
-      '1 FINO',
-      'TENTA OUTRA VEZ',
-      '2 FINOS',
-      'TENTA OUTRA VEZ',
-      '1 FINO',
-      '5 FINOS',
-      'TENTA OUTRA VEZ',
-      'TENTA OUTRA VEZ'
+      { label: '5 SHOTS<br>JAGGER', color: '#d4a800' },
+      { label: 'TENTA<br>OUTRA<br>VEZ', color: '#16305e' },
+      { label: '5<br>FINOS', color: '#e21b4d' },
+      { label: 'TENTA<br>OUTRA<br>VEZ', color: '#223971' },
+      { label: '1 SHOT<br>JAGGER', color: '#4f7fe0' },
+      { label: '1<br>FINO', color: '#6f95ef' },
+      { label: 'TENTA<br>OUTRA<br>VEZ', color: '#17305f' }
     ];
 
     const segmentAngle = 360 / segments.length;
@@ -572,124 +415,57 @@
     }
 
     function buildWheel() {
+      const gradient = segments.map((seg, i) => {
+        const start = i * segmentAngle;
+        const end = start + segmentAngle;
+        return `${seg.color} ${start}deg ${end}deg`;
+      }).join(',');
+
+      wheel.style.background = `conic-gradient(from 0deg, ${gradient})`;
       wheel.innerHTML = '';
 
-      const stops = segments.map((label, index) => {
-        const start = index * segmentAngle;
-        const end = start + segmentAngle;
-        return `${prizeStyles[label].color} ${start}deg ${end}deg`;
-      }).join(', ');
+      for (let i = 0; i < segments.length; i++) {
+        const item = segments[i];
 
-      wheel.style.background = `conic-gradient(from 0deg, ${stops})`;
-
-      segments.forEach((label, index) => {
-        const wrap = document.createElement('div');
-        wrap.className = 'slice-label';
-        wrap.style.transform = `rotate(${index * segmentAngle}deg)`;
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.style.transform = `rotate(${i * segmentAngle}deg)`;
 
         const span = document.createElement('span');
-        span.innerHTML = prizeStyles[label].text;
-        span.style.transform = `translate(16%, -50%) rotate(${segmentAngle / 2}deg)`;
-        wrap.appendChild(span);
-        wheel.appendChild(wrap);
-      });
-    }
+        span.innerHTML = item.label;
+        span.style.transform = `translate(14%, -50%) rotate(${segmentAngle / 2}deg)`;
 
-    function buildLights() {
-      lights.innerHTML = '';
-      const count = 42;
-
-      for (let i = 0; i < count; i++) {
-        const bulb = document.createElement('div');
-        bulb.className = 'bulb';
-        const angle = (360 / count) * i;
-        bulb.style.transform = `rotate(${angle}deg) translateY(calc(-50% + -46%))`;
-        bulb.style.animationDelay = `${i * 0.04}s`;
-        lights.appendChild(bulb);
+        label.appendChild(span);
+        wheel.appendChild(label);
       }
-    }
-
-    function randomIndex() {
-      return Math.floor(Math.random() * segments.length);
     }
 
     function targetRotationForIndex(index) {
       const current = norm(totalRotation);
       const centerAngle = index * segmentAngle + segmentAngle / 2;
-      const targetMod = norm(360 - centerAngle);
-      const delta = norm(targetMod - current);
-      const extraTurns = (8 + Math.floor(Math.random() * 3)) * 360;
+      const target = norm(360 - centerAngle);
+      const delta = norm(target - current);
+      const extraTurns = (6 + Math.floor(Math.random() * 2)) * 360;
       return totalRotation + extraTurns + delta;
-    }
-
-    function burst(jackpot = false) {
-      confetti.innerHTML = '';
-      const total = jackpot ? 130 : 40;
-      const palette = jackpot
-        ? ['#FFD300', '#fff0bd', '#E21B4D', '#ffffff']
-        : ['#E21B4D', '#FFD300', '#dfe9ff', '#8b96b6'];
-
-      for (let i = 0; i < total; i++) {
-        const piece = document.createElement('div');
-        piece.className = 'confetti-piece';
-
-        const size = 6 + Math.random() * (jackpot ? 12 : 7);
-        piece.style.width = `${size}px`;
-        piece.style.height = `${size * (1.3 + Math.random())}px`;
-        piece.style.left = `${Math.random() * 100}vw`;
-        piece.style.top = '-10vh';
-        piece.style.background = palette[Math.floor(Math.random() * palette.length)];
-        piece.style.setProperty('--drift', `${-180 + Math.random() * 360}px`);
-        piece.style.setProperty('--rot', `${220 + Math.random() * 720}deg`);
-        piece.style.animation = `fall ${jackpot ? 2.8 : 2.1}s cubic-bezier(.12,.8,.2,1) forwards`;
-        piece.style.opacity = '1';
-        confetti.appendChild(piece);
-      }
-
-      setTimeout(() => {
-        confetti.innerHTML = '';
-      }, jackpot ? 3200 : 2200);
     }
 
     function spin() {
       if (spinning) return;
       spinning = true;
 
-      wheelStage.classList.add('spin-pop');
-      setTimeout(() => wheelStage.classList.remove('spin-pop'), 800);
-
-      const chosenIndex = randomIndex();
-      const chosenPrize = segments[chosenIndex];
-      totalRotation = targetRotationForIndex(chosenIndex);
-
-      if (chosenPrize === '5 JÄGERBOMBS') {
-        flash.classList.add('active');
-        setTimeout(() => flash.classList.remove('active'), 220);
-      }
-
-      wheel.style.transform = `rotate(${totalRotation}deg)`;
+      const index = Math.floor(Math.random() * segments.length);
+      totalRotation = targetRotationForIndex(index);
+      wheel.style.transform = `translateZ(0) rotate(${totalRotation}deg)`;
     }
 
     wheel.addEventListener('transitionend', () => {
-      if (!spinning) return;
-
-      const finalIndex = Math.floor(Math.random() * 999999); // dummy guard removed visually
-      const lastVisiblePrize = segments[((Math.round((360 - norm(totalRotation) - segmentAngle / 2) / segmentAngle) % segments.length) + segments.length) % segments.length];
-
-      if (lastVisiblePrize === '5 JÄGERBOMBS') {
-        burst(true);
-      } else if (lastVisiblePrize === '5 FINOS' || lastVisiblePrize === '2 FINOS') {
-        burst(false);
-      }
-
       spinning = false;
     });
 
     buildWheel();
-    buildLights();
 
-    window.addEventListener('keydown', spin);
-    document.addEventListener('mousedown', spin);
+    window.addEventListener('keydown', spin, { passive: true });
+    document.addEventListener('mousedown', spin, { passive: true });
     document.addEventListener('touchstart', spin, { passive: true });
   </script>
 </body>
